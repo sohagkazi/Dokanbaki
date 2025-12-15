@@ -38,6 +38,7 @@ export interface Transaction {
     mobileNumber: string;
     amount: number;
     type: 'DUE' | 'PAYMENT';
+    productName?: string; // Optional product details
     date: string;
     dueDate?: string; // Expected payment date for DUE
     createdAt: string;
@@ -49,6 +50,16 @@ export interface DatabaseSchema {
     transactions: Transaction[];
     otps: OTP[];
     payments: Payment[];
+    notifications: Notification[];
+}
+
+export interface Notification {
+    id: string;
+    shopId: string;
+    message: string;
+    type: 'DUE_ALERT' | 'SYSTEM';
+    date: string; // ISO string
+    isRead: boolean;
 }
 
 
@@ -81,12 +92,15 @@ async function getDb(): Promise<DatabaseSchema> {
         if (!Array.isArray(db.transactions)) db.transactions = [];
         if (!Array.isArray(db.transactions)) db.transactions = [];
         if (!Array.isArray(db.otps)) db.otps = [];
+        if (!Array.isArray(db.transactions)) db.transactions = [];
+        if (!Array.isArray(db.otps)) db.otps = [];
         if (!Array.isArray(db.payments)) db.payments = [];
+        if (!Array.isArray(db.notifications)) db.notifications = [];
 
         return db;
     } catch (error) {
         // If file doesn't exist or error parsing, return default structure
-        return { users: [], shops: [], transactions: [], otps: [], payments: [] };
+        return { users: [], shops: [], transactions: [], otps: [], payments: [], notifications: [] };
     }
 }
 
@@ -366,4 +380,39 @@ export async function updatePaymentStatus(id: string, status: 'APPROVED' | 'REJE
     db.payments[index].status = status;
     await saveDb(db);
     return db.payments[index];
+}
+
+
+// --- NOTIFICATION FUNCTIONS ---
+
+export async function createNotification(notification: Omit<Notification, 'id'>) {
+    const db = await getDb();
+    const newNotification: Notification = {
+        ...notification,
+        id: Math.random().toString(36).substring(2, 9),
+    };
+    db.notifications.push(newNotification);
+    await saveDb(db);
+    return newNotification;
+}
+
+export async function getShopNotifications(shopId: string) {
+    const db = await getDb();
+    return db.notifications
+        .filter(n => n.shopId === shopId)
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function markNotificationRead(id: string) {
+    const db = await getDb();
+    const index = db.notifications.findIndex(n => n.id === id);
+    if (index !== -1) {
+        db.notifications[index].isRead = true;
+        await saveDb(db);
+    }
+}
+
+export async function getUnreadNotificationCount(shopId: string) {
+    const db = await getDb();
+    return db.notifications.filter(n => n.shopId === shopId && !n.isRead).length;
 }

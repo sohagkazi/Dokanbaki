@@ -12,6 +12,7 @@
     "@ai-sdk/react": "^2.0.114",
     "ai": "^5.0.112",
     "bcryptjs": "^3.0.3",
+    "firebase": "^12.6.0",
     "jspdf": "^3.0.4",
     "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.556.0",

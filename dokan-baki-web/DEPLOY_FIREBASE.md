@@ -28,4 +28,5 @@ I've set up the configuration files for Firebase Hosting with Next.js support.
 ## Important Note regarding Next.js
 Since your app uses API Routes and Server Actions, Firebase will try to deploy these as **Cloud Functions**. 
 - You must have the **Blaze (Pay as you go)** plan enabled on your Firebase project.
-- The deployment process will automatically detect Next.js and enable "web frameworks" support.
+- **CRITICAL:** The deployment failed with the error: `Billing account for project '...' is not open`. You MUST enable billing to proceed.
+- The deployment process will automatically detect Next.js and enable "web frameworks" support which requires Artifact Registry (also requires billing).

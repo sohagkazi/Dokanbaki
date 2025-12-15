@@ -1,0 +1,342 @@
+[2025-12-15T15:55:53.387Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[2025-12-15T15:55:53.388Z] > authorizing via signed-in user (spacevew@gmail.com)
+[2025-12-15T15:55:53.388Z] [iam] checking project dokan-baki-e4085 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[2025-12-15T15:55:53.389Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:55:53.389Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:55:53.390Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions [none]
+[2025-12-15T15:55:53.397Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions x-goog-quota-user=projects/dokan-baki-e4085
+[2025-12-15T15:55:53.397Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[2025-12-15T15:55:54.839Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions 200
+[2025-12-15T15:55:54.839Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[2025-12-15T15:55:54.841Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:55:54.841Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:55:54.841Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dokan-baki-e4085 [none]
+[2025-12-15T15:55:55.391Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dokan-baki-e4085 200
+[2025-12-15T15:55:55.392Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dokan-baki-e4085 {"projectId":"dokan-baki-e4085","projectNumber":"618964846436","displayName":"Dokan Baki","name":"projects/dokan-baki-e4085","resources":{"hostingSite":"dokan-baki-e4085"},"state":"ACTIVE","etag":"1_bef7b827-08b5-4801-8a51-35d1a5074389"}
+
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+
+WARNING: Your package.json contains a custom build that is being ignored. Only the Next.js default build script (e.g, "next build") is respected. If you have a more advanced build process you should build a custom integration https://firebase.google.com/docs/hosting/express
+
+[2025-12-15T15:56:06.276Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:06.277Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:06.278Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dokan-baki-e4085/sites/dokan-baki-e4085 [none]
+[2025-12-15T15:56:08.295Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dokan-baki-e4085/sites/dokan-baki-e4085 200
+[2025-12-15T15:56:08.296Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dokan-baki-e4085/sites/dokan-baki-e4085 {"name":"projects/dokan-baki-e4085/sites/dokan-baki-e4085","defaultUrl":"https://dokan-baki-e4085.web.app","appId":"1:618964846436:web:4a5b2c4b12b52804405c71","type":"DEFAULT_SITE"}
+   ▲ Next.js 16.0.7 (Turbopack)
+
+   - Environments: .env.local
+   - Experiments (use with caution):
+     · serverActions
+
+
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+   Creating an optimized production build ...
+
+
+
+[247.72ms] [@tailwindcss/postcss] app\globals.css
+[  0.18ms]   ↳ Quick bail check
+
+[ 68.08ms]   ↳ Setup compiler
+
+[  1.10ms]     ↳ PostCSS AST -> Tailwind CSS AST
+[ 66.89ms]     ↳ Create compiler
+[  0.39ms]   ↳ Register full rebuild paths
+[  5.20ms]   ↳ Setup scanner
+[ 30.34ms]   ↳ Scan for candidates
+[ 40.45ms]   ↳ Register dependency messages
+
+[ 65.14ms]   ↳ Build utilities
+[ 32.97ms]   ↳ Optimization
+[  2.06ms]     ↳ AST -> CSS
+[ 17.84ms]     ↳ Lightning CSS
+[ 12.98ms]     ↳ CSS -> PostCSS AST
+[  3.90ms]   ↳ Update PostCSS AST
+
+
+ ✓ Compiled successfully in 15.1s
+
+   Running TypeScript ...
+
+   Collecting page data using 11 workers ...
+
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+
+   Generating static pages using 11 workers (0/21) ...
+
+   Generating static pages using 11 workers (5/21) 
+
+   Generating static pages using 11 workers (10/21) 
+
+   Generating static pages using 11 workers (15/21) 
+
+ ✓ Generating static pages using 11 workers (21/21) in 1188.2ms
+
+   Finalizing page optimization ...
+
+
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /add-due
+├ ƒ /add-payment
+├ ƒ /admin/dashboard
+├ ƒ /admin/login
+├ ƒ /api/chat
+├ ƒ /api/cron/check-overdue
+├ ƒ /api/payment/cancel
+├ ƒ /api/payment/fail
+├ ƒ /api/payment/init
+├ ƒ /api/payment/moynapay/callback
+├ ƒ /api/payment/moynapay/init
+├ ƒ /api/payment/piprapay/callback
+├ ƒ /api/payment/piprapay/init
+├ ƒ /api/payment/success
+├ ƒ /customer/[name]
+├ ƒ /customers
+├ ƒ /due-list
+├ ƒ /forgot-password
+├ ƒ /login
+├ ƒ /payment-list
+├ ƒ /pricing
+├ ƒ /profile
+├ ƒ /profile/edit
+├ ƒ /register
+├ ƒ /search
+├ ƒ /send-message
+├ ƒ /shops
+├ ƒ /subscription
+├ ƒ /subscription/checkout
+├ ƒ /user-profile
+└ ƒ /user-profile/edit
+
+
+ƒ Proxy (Middleware)
+
+ƒ  (Dynamic)  server-rendered on demand
+
+
+Building a Cloud Function to run this application. This is needed due to:
+ • middleware
+ • non-static component /_not-found/page
+ • non-static component /add-due/page
+ • non-static component /add-payment/page
+ • non-static component /admin/dashboard/page
+[2025-12-15T15:56:39.808Z]  • non-static component /admin/login/page
+[2025-12-15T15:56:39.808Z]  • non-static component /api/cron/check-overdue/route
+[2025-12-15T15:56:39.808Z]  • non-static component /api/payment/cancel/route
+[2025-12-15T15:56:39.808Z]  • non-static component /api/payment/fail/route
+[2025-12-15T15:56:39.808Z]  • non-static component /api/payment/init/route
+[2025-12-15T15:56:39.808Z]  • non-static component /api/payment/moynapay/callback/route
+[2025-12-15T15:56:39.808Z]  • non-static component /api/payment/moynapay/init/route
+[2025-12-15T15:56:39.809Z]  • non-static component /api/payment/piprapay/callback/route
+[2025-12-15T15:56:39.809Z]  • non-static component /api/payment/piprapay/init/route
+[2025-12-15T15:56:39.809Z]  • non-static component /api/payment/success/route
+[2025-12-15T15:56:39.809Z]  • non-static component /customer/[name]/page
+[2025-12-15T15:56:39.809Z]  • non-static component /customers/page
+[2025-12-15T15:56:39.809Z]  • non-static component /due-list/page
+[2025-12-15T15:56:39.810Z]  • non-static component /forgot-password/page
+[2025-12-15T15:56:39.810Z]  • non-static component /login/page
+[2025-12-15T15:56:39.810Z]  • non-static component /page
+[2025-12-15T15:56:39.811Z]  • non-static component /payment-list/page
+[2025-12-15T15:56:39.811Z]  • non-static component /pricing/page
+[2025-12-15T15:56:39.811Z]  • non-static component /profile/edit/page
+[2025-12-15T15:56:39.811Z]  • non-static component /profile/page
+[2025-12-15T15:56:39.812Z]  • non-static component /register/page
+[2025-12-15T15:56:39.812Z]  • non-static component /search/page
+[2025-12-15T15:56:39.812Z]  • non-static component /send-message/page
+[2025-12-15T15:56:39.813Z]  • non-static component /shops/page
+[2025-12-15T15:56:39.813Z]  • non-static component /subscription/checkout/page
+[2025-12-15T15:56:39.813Z]  • non-static component /subscription/page
+[2025-12-15T15:56:39.813Z]  • non-static component /user-profile/edit/page
+[2025-12-15T15:56:39.814Z]  • non-static component /user-profile/page
+[2025-12-15T15:56:39.814Z]  • route with server action /customers
+[2025-12-15T15:56:39.814Z]  • route with server action /add-due
+[2025-12-15T15:56:39.814Z]  • route with server action /add-payment
+[2025-12-15T15:56:39.814Z]  • route with server action /user-profile/edit
+[2025-12-15T15:56:39.814Z]  • route with server action /forgot-password
+
+[2025-12-15T15:56:40.106Z] skipping /_global-error due to it matching an unsupported rewrite/redirect/header or middlware
+[2025-12-15T15:56:40.109Z] skipping /500 due to it matching an unsupported rewrite/redirect/header or middlware
+[2025-12-15T15:56:40.387Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:40.388Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:40.388Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dokan-baki-e4085/sites/dokan-baki-e4085 [none]
+[2025-12-15T15:56:47.743Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dokan-baki-e4085/sites/dokan-baki-e4085 200
+[2025-12-15T15:56:47.743Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dokan-baki-e4085/sites/dokan-baki-e4085 {"name":"projects/dokan-baki-e4085/sites/dokan-baki-e4085","defaultUrl":"https://dokan-baki-e4085.web.app","appId":"1:618964846436:web:4a5b2c4b12b52804405c71","type":"DEFAULT_SITE"}
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'firebase-frameworks@0.11.8',
+npm warn EBADENGINE   required: { node: '^16.0.0 || ^18.0.0 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.1', npm: '11.6.4' }
+npm warn EBADENGINE }
+
+up to date in 6s
+
+125 packages are looking for funding
+  run `npm fund` for details
+[2025-12-15T15:56:55.810Z] [web frameworks] effective firebase.json:  {
+  "hosting": [
+    {
+      "source": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-central1"
+      },
+      "site": "dokan-baki-e4085",
+      "rewrites": [
+        {
+          "source": "/**",
+          "function": {
+            "functionId": "ssrdokanbakie4085",
+            "region": "us-central1",
+            "pinTag": true
+          }
+        }
+      ],
+      "redirects": [],
+      "headers": [
+        {
+          "source": "/favicon.ico",
+          "headers": [
+            {
+              "key": "cache-control",
+              "value": "public, max-age=0, must-revalidate"
+            },
+            {
+              "key": "content-type",
+              "value": "image/x-icon"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/favicon.ico/layout,_N_T_/favicon.ico/route,_N_T_/favicon.ico"
+            }
+          ]
+        },
+        {
+          "source": "/_global-error",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/_global-error/layout,_N_T_/_global-error/page,_N_T_/_global-error"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false,
+      "public": ".firebase\\dokan-baki-e4085\\hosting",
+      "webFramework": "next_ssr"
+    }
+  ],
+  "functions": [
+    {
+      "source": ".firebase\\dokan-baki-e4085\\functions",
+      "codebase": "firebase-frameworks-dokan-baki-e4085"
+    }
+  ]
+}
+[2025-12-15T15:56:55.811Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[2025-12-15T15:56:55.812Z] > authorizing via signed-in user (spacevew@gmail.com)
+[2025-12-15T15:56:55.812Z] [iam] checking project dokan-baki-e4085 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[2025-12-15T15:56:55.813Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:55.813Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:55.814Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions [none]
+[2025-12-15T15:56:55.814Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions x-goog-quota-user=projects/dokan-baki-e4085
+[2025-12-15T15:56:55.814Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[2025-12-15T15:56:57.226Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions 200
+[2025-12-15T15:56:57.226Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+
+=== Deploying to 'dokan-baki-e4085'...
+
+i  deploying functions, hosting 
+[2025-12-15T15:56:57.232Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:57.232Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:57.232Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085 [none]
+[2025-12-15T15:56:57.586Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085 200
+[2025-12-15T15:56:57.587Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/dokan-baki-e4085 {"projectNumber":"618964846436","projectId":"dokan-baki-e4085","lifecycleState":"ACTIVE","name":"Dokan Baki","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-12-15T14:40:17.364817Z"}
+i  functions: preparing codebase firebase-frameworks-dokan-baki-e4085 for deployment 
+i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[2025-12-15T15:56:57.589Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:57.589Z] Checked if tokens are valid: true, expires at: 1765817557878
+i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[2025-12-15T15:56:57.589Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:57.590Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:57.590Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/cloudbuild.googleapis.com [none]
+[2025-12-15T15:56:57.590Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/cloudbuild.googleapis.com x-goog-quota-user=projects/dokan-baki-e4085
+[2025-12-15T15:56:57.592Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com [none]
+[2025-12-15T15:56:57.592Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com x-goog-quota-user=projects/dokan-baki-e4085
+[2025-12-15T15:56:59.303Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/cloudbuild.googleapis.com 200
+[2025-12-15T15:56:59.304Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/cloudbuild.googleapis.com [omitted]
+!  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[2025-12-15T15:56:59.305Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:59.305Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:59.305Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/cloudbuild.googleapis.com:enable [none]
+[2025-12-15T15:56:59.305Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/cloudbuild.googleapis.com:enable x-goog-quota-user=projects/dokan-baki-e4085
+[2025-12-15T15:56:59.310Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com 200
+[2025-12-15T15:56:59.310Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com [omitted]
+!  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[2025-12-15T15:56:59.311Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:59.311Z] Checked if tokens are valid: true, expires at: 1765817557878
+[2025-12-15T15:56:59.311Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com:enable [none]
+[2025-12-15T15:56:59.311Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com:enable x-goog-quota-user=projects/dokan-baki-e4085
+[2025-12-15T15:56:59.704Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com:enable 400
+[2025-12-15T15:56:59.705Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com:enable [omitted]
+
+Error: Request to https://serviceusage.googleapis.com/v1/projects/dokan-baki-e4085/services/artifactregistry.googleapis.com:enable had HTTP Error: 400, Billing account for project '618964846436' is not open. Billing must be enabled for activation of service(s) 'artifactregistry.googleapis.com' to proceed.
+Help Token: Aa5Mgst0SYhFVfmrA7O-sCboMa1X6MG11CO7xDHpImzrAZ21dRri6vhXxIHr512oV5r2dpDkWv1jm27A6Dwc7r7I-UHm4_AQmi9VgSZDRwfIM049
+[2025-12-15T15:57:00.152Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 400,
+      "message": "Billing account for project '618964846436' is not open. Billing must be enabled for activation of service(s) 'artifactregistry.googleapis.com' to proceed.\nHelp Token: Aa5Mgst0SYhFVfmrA7O-sCboMa1X6MG11CO7xDHpImzrAZ21dRri6vhXxIHr512oV5r2dpDkWv1jm27A6Dwc7r7I-UHm4_AQmi9VgSZDRwfIM049",
+      "status": "FAILED_PRECONDITION",
+      "details": [
+        {
+          "@type": "type.googleapis.com/google.rpc.PreconditionFailure",
+          "violations": [
+            {
+              "type": "googleapis.com/billing-enabled",
+              "subject": "?error_code=390002&project=618964846436&services=artifactregistry.googleapis.com"
+            }
+          ]
+        },
+        {
+          "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+          "reason": "UREQ_PROJECT_BILLING_NOT_OPEN",
+          "domain": "serviceusage.googleapis.com/billing-enabled",
+          "metadata": {
+            "project": "618964846436",
+            "services": "artifactregistry.googleapis.com"
+          }
+        }
+      ]
+    }
+  },
+  "response": {
+    "statusCode": 400
+  }
+}

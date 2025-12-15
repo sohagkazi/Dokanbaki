@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllDueTransactions } from '@/lib/db';
+import { getAllDueTransactions, createNotification } from '@/lib/db';
 import { sendWhatsApp } from '@/lib/sms';
 
 export const dynamic = 'force-dynamic'; // Ensure it runs every time
@@ -28,8 +28,19 @@ export async function GET() {
 
                 if (tx.mobileNumber) {
                     await sendWhatsApp(tx.mobileNumber, `Reminder: You have an overdue payment of Tk ${tx.amount} from date ${tx.date}. Please pay as soon as possible. - Dokan Baki`);
-                    sentCount++;
                 }
+
+                // NOTIFICATION FOR SHOP OWNER
+                // Create a system notification for the shop owner
+                await createNotification({
+                    shopId: tx.shopId,
+                    message: `Customer ${tx.customerName} has an overdue payment of Tk ${tx.amount}.`,
+                    type: 'DUE_ALERT',
+                    date: new Date().toISOString(),
+                    isRead: false
+                });
+
+                sentCount++;
             }
         }
 

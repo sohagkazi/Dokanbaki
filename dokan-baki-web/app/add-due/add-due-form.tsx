@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from "next/link";
-import { User, Phone, DollarSign, Calendar, Save } from "lucide-react";
+import { User, Phone, DollarSign, Calendar, Save, ShoppingBag } from "lucide-react";
 import { saveDueEntry } from "../actions";
 
 interface Customer {
@@ -65,6 +65,22 @@ export default function AddDueForm({ customers, prefillName }: { customers: Cust
                         placeholder="017..."
                         className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 outline-none transition-all placeholder:text-gray-400"
                         required
+                    />
+                </div>
+            </div>
+
+            {/* Product Name */}
+            <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-700 ml-1">Product Name (Optional)</label>
+                <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <ShoppingBag className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                        name="productName"
+                        type="text"
+                        placeholder="e.g. Rice, Oil, etc."
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 outline-none transition-all placeholder:text-gray-400"
                     />
                 </div>
             </div>

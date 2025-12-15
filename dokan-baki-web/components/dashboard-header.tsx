@@ -28,6 +28,11 @@ export default function DashboardHeader({ shopName, shopImage }: DashboardHeader
                 </Link>
 
                 <div className="flex gap-3">
+                    <Link href="/notifications" className="bg-white/20 p-2 rounded-full hover:bg-white/30 transition backdrop-blur-md relative" title="Notifications">
+                        <Bell className="w-5 h-5 text-white" />
+                        {/* We could fetch count here, but for simplicity let's just show the link */}
+                        {/* Advanced: Component that fetches count */}
+                    </Link>
 
                     <Link href="/search" className="bg-white/20 p-2 rounded-full hover:bg-white/30 transition backdrop-blur-md">
                         <Search className="w-5 h-5 text-white" />

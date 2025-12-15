@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getAllPayments, getUserById, getAllUsersWithStats } from "@/lib/db";
-import { approvePaymentAction, rejectPaymentAction, logoutAction } from "@/app/actions";
-import { Check, X, LogOut, LayoutDashboard } from "lucide-react";
+import { getAllUsersWithStats } from "@/lib/db";
+import { logoutAction } from "@/app/actions";
+import { LogOut, LayoutDashboard, Users, Store, DollarSign } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -14,14 +14,11 @@ export default async function AdminDashboard() {
         redirect('/admin/login');
     }
 
-    const payments = await getAllPayments();
-
-    // Sort payments: Pending first, then by date desc
-    const sortedPayments = [...payments].sort((a, b) => {
-        if (a.status === 'PENDING' && b.status !== 'PENDING') return -1;
-        if (a.status !== 'PENDING' && b.status === 'PENDING') return 1;
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
+    const users = await getAllUsersWithStats();
+    const totalUsers = users.length;
+    const totalShops = users.reduce((acc, user) => acc + user.shopCount, 0);
+    const totalDue = users.reduce((acc, user) => acc + (user.totalDue || 0), 0);
+    // Simple mock metric for total due could be aggregated if needed, but "Total Users" is the request.
 
     return (
         <div className="min-h-screen bg-gray-50 font-sans">
@@ -49,61 +46,43 @@ export default async function AdminDashboard() {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-                <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-gray-900">Payment Requests ({payments.filter(p => p.status === 'PENDING').length})</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {/* Total Users Card */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-500">Total Users</p>
+                            <h3 className="text-3xl font-bold text-gray-900 mt-1">{totalUsers}</h3>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-full">
+                            <Users className="w-8 h-8 text-blue-600" />
+                        </div>
+                    </div>
+
+                    {/* Total Shops Card */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-500">Total Shops</p>
+                            <h3 className="text-3xl font-bold text-gray-900 mt-1">{totalShops}</h3>
+                        </div>
+                        <div className="bg-purple-50 p-3 rounded-full">
+                            <Store className="w-8 h-8 text-purple-600" />
+                        </div>
+                    </div>
+
+                    {/* Total Due Card */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-500">Total Due</p>
+                            <h3 className="text-3xl font-bold text-red-600 mt-1">{totalDue} BDT</h3>
+                        </div>
+                        <div className="bg-red-50 p-3 rounded-full">
+                            <DollarSign className="w-8 h-8 text-red-600" />
+                        </div>
+                    </div>
                 </div>
 
-                <div className="bg-white shadow overflow-hidden rounded-lg border border-gray-200">
-                    <ul className="divide-y divide-gray-200">
-                        {sortedPayments.map(payment => (
-                            <li key={payment.id} className="p-6">
-                                <div className="flex items-center justify-between flex-wrap gap-4">
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-3 mb-1">
-                                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${payment.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
-                                                payment.status === 'APPROVED' ? 'bg-green-100 text-green-800 border-green-200' :
-                                                    'bg-red-100 text-red-800 border-red-200'
-                                                }`}>
-                                                {payment.status}
-                                            </span>
-                                            <span className="text-sm text-gray-500">{new Date(payment.createdAt).toLocaleString()}</span>
-                                        </div>
-                                        <h3 className="text-lg font-bold text-gray-900">
-                                            {payment.amount} BDT  <span className="text-gray-500 font-normal">for</span> {payment.plan}
-                                        </h3>
-                                        <div className="mt-1 text-sm text-gray-600 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
-                                            <p><span className="font-semibold">Method:</span> {payment.method}</p>
-                                            <p><span className="font-semibold">Sender:</span> {payment.senderNumber}</p>
-                                            <p><span className="font-semibold">Trx ID:</span> {payment.transactionId}</p>
-                                            <p><span className="font-semibold">User ID:</span> {payment.userId}</p>
-                                        </div>
-                                    </div>
-
-                                    {payment.status === 'PENDING' && (
-                                        <div className="flex items-center gap-3">
-                                            <form action={rejectPaymentAction.bind(null, payment.id)}>
-                                                <button className="flex items-center px-4 py-2 border border-red-300 text-red-700 rounded-md hover:bg-red-50 transition">
-                                                    <X className="w-4 h-4 mr-2" /> Reject
-                                                </button>
-                                            </form>
-                                            <form action={approvePaymentAction.bind(null, payment.id, payment.userId, payment.plan, payment.amount)}>
-                                                <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 shadow-sm transition">
-                                                    <Check className="w-4 h-4 mr-2" /> Approve
-                                                </button>
-                                            </form>
-                                        </div>
-                                    )}
-                                </div>
-                            </li>
-                        ))}
-                        {sortedPayments.length === 0 && (
-                            <li className="p-12 text-center text-gray-500">No payment records found.</li>
-                        )}
-                    </ul>
-                </div>
-
-                <div className="mb-8 mt-12">
-                    <h2 className="text-2xl font-bold text-gray-900">All Users & Shops</h2>
+                <div className="mb-6">
+                    <h2 className="text-xl font-bold text-gray-900">All Users & Shops</h2>
                 </div>
 
                 <div className="bg-white shadow overflow-hidden rounded-lg border border-gray-200">
@@ -120,7 +99,7 @@ export default async function AdminDashboard() {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {(await getAllUsersWithStats()).map((user) => {
+                                {users.map((user) => {
                                     const plan = user.subscriptionPlan ? user.subscriptionPlan : 'FREE';
                                     return (
                                         <tr key={user.id}>

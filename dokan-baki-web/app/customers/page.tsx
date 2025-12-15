@@ -106,15 +106,7 @@ export default async function Customers() {
                                             ৳ {customer.due.toLocaleString()}
                                         </p>
                                     </div>
-                                    {customer.phone && (
-                                        <Link
-                                            href={`/send-message?name=${encodeURIComponent(customer.name)}&mobile=${customer.phone}`}
-                                            className="p-2.5 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition shadow-sm z-10"
-                                            title="Send Message"
-                                        >
-                                            <MessageCircle className="w-5 h-5" />
-                                        </Link>
-                                    )}
+
                                     <DeleteCustomerButton customerName={customer.name} />
                                 </div>
                             </div>

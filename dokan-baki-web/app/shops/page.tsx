@@ -113,7 +113,7 @@ export default async function ShopsPage() {
                                         name="shopName"
                                         type="text"
                                         required
-                                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border py-2 px-3"
+                                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border py-2 px-3 text-black"
                                         placeholder="e.g. Bhai Bhai Store"
                                     />
                                 </div>
@@ -123,7 +123,7 @@ export default async function ShopsPage() {
                                     <input
                                         name="mobile"
                                         type="tel"
-                                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border py-2 px-3"
+                                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border py-2 px-3 text-black"
                                         placeholder="017..."
                                     />
                                 </div>

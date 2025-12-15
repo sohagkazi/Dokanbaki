@@ -3,11 +3,11 @@
 import bcrypt from 'bcryptjs';
 
 // ... (other imports remain, but ensure to keep them or re-add them if replacement overrides)
-import { addTransaction, createShop, createUser, getUserByMobile, getShopsByOwner, updateShop, updateUser, getUserById, createPayment, updatePaymentStatus, deleteCustomerTransactions } from '@/lib/db';
+import { addTransaction, createShop, createUser, getUserByMobile, getShopsByOwner, updateShop, updateUser, getUserById, createPayment, updatePaymentStatus, deleteCustomerTransactions, markNotificationRead } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { sendWhatsApp } from '@/lib/sms';
+
 import { loginUser, logoutUser, getCurrentShopId, getCurrentUserId, setShopContext, clearShopContext } from '@/lib/auth';
 
 // --- USER ACTIONS ---
@@ -161,6 +161,7 @@ export async function saveDueEntry(formData: FormData) {
     const amount = parseFloat(formData.get('amount') as string);
     const date = formData.get('date') as string;
     const dueDate = formData.get('dueDate') as string; // Optional
+    const productName = (formData.get('productName') as string || '').trim(); // Optional
 
     if (!customerName || isNaN(amount)) {
         throw new Error('Missing required fields or invalid amount');
@@ -173,13 +174,11 @@ export async function saveDueEntry(formData: FormData) {
         amount,
         date,
         dueDate,
+        productName,
         type: 'DUE',
     });
 
-    // Send WhatsApp
-    if (mobileNumber) {
-        await sendWhatsApp(mobileNumber, `Hello *${customerName}*,\nYour due of *Tk ${amount}* has been added.\nDate: ${date}\n\n- Baki Khata App`);
-    }
+
 
     revalidatePath('/');
     revalidatePath('/customers');
@@ -208,9 +207,7 @@ export async function savePaymentEntry(formData: FormData) {
         type: 'PAYMENT',
     });
 
-    if (mobileNumber) {
-        await sendWhatsApp(mobileNumber, `Hello *${customerName}*,\nWe received your payment of *Tk ${amount}*.\n\n- Baki Khata App`);
-    }
+
 
     revalidatePath('/');
     revalidatePath('/customers');
@@ -243,22 +240,7 @@ export async function updateShopProfile(formData: FormData) {
 
 // --- MESSAGING ACTIONS ---
 
-export async function sendManualMessage(formData: FormData) {
-    const userId = await getCurrentUserId();
-    if (!userId) redirect('/login');
 
-    const customerName = formData.get('customerName') as string;
-    const mobile = formData.get('mobile') as string;
-    const message = formData.get('message') as string;
-
-    if (!mobile || !message) {
-        throw new Error('Mobile number and message are required');
-    }
-
-    await sendWhatsApp(mobile, `Hello *${customerName}*,\n\n${message}\n\n- Dokan Baki App`);
-
-    redirect('/customers');
-}
 
 export async function deleteCustomerAction(customerName: string) {
     const shopId = await getCurrentShopId();
@@ -402,4 +384,13 @@ export async function submitPaymentAction(formData: FormData) {
 
     // In a real app we'd redirect to a "Thank You" or "Pending" page
     redirect('/subscription?success=payment_submitted');
+}
+// --- NOTIFICATION ACTIONS ---
+
+export async function markNotificationReadAction(id: string) {
+    const shopId = await getCurrentShopId();
+    if (!shopId) return; // Security check
+
+    await markNotificationRead(id);
+    revalidatePath('/notifications');
 }
