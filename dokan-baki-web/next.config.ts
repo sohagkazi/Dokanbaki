@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
   },
+  // @ts-ignore
+  turbopack: {},
 };
 
 const withPWA = require("next-pwa")({

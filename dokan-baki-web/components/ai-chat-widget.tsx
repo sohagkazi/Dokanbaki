@@ -9,7 +9,7 @@ export function AiChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
 
     // Use Vercel AI SDK's useChat hook
-    const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, isLoading } = (useChat as any)({
         api: '/api/chat',
         initialMessages: [
             {
@@ -19,7 +19,7 @@ export function AiChatWidget() {
                 createdAt: new Date(),
             }
         ]
-    }) as any;
+    });
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ export function AiChatWidget() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50" ref={scrollRef}>
-                {messages.map(m => (
+                {messages.map((m: any) => (
                     <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                         <div className={`flex gap-2 max-w-[85%] ${m.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${m.role === 'user' ? 'bg-indigo-100' : 'bg-blue-100'}`}>
