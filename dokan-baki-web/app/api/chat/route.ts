@@ -24,7 +24,10 @@ I can help you with:
         async start(controller) {
             const chunks = responseText.split(/(?=[,.\n])/); // split by basic punctuation
             for (const chunk of chunks) {
-                controller.enqueue(encoder.encode(chunk));
+                // Determine format based on chunk content if needed, but for simple text stream:
+                // Protocol: 0:{string_content}\n
+                const payload = '0:' + JSON.stringify(chunk) + '\n';
+                controller.enqueue(encoder.encode(payload));
                 await new Promise(r => setTimeout(r, 50)); // typing effect
             }
             controller.close();

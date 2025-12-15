@@ -8,10 +8,15 @@ export interface User {
     name: string;
     mobile: string;
     password: string; // Hashed password
+    email?: string;
     createdAt: string;
     // Profile details
     image?: string;
     address?: string;
+    // Subscription details
+    subscriptionPlan: 'FREE' | 'PRO' | 'PLATINUM' | 'TITANIUM';
+    subscriptionExpiry?: string; // ISO Date string
+    smsBalance: number;
 }
 
 export interface Shop {
@@ -34,6 +39,7 @@ export interface Transaction {
     amount: number;
     type: 'DUE' | 'PAYMENT';
     date: string;
+    dueDate?: string; // Expected payment date for DUE
     createdAt: string;
 }
 
@@ -42,6 +48,20 @@ export interface DatabaseSchema {
     shops: Shop[];
     transactions: Transaction[];
     otps: OTP[];
+    payments: Payment[];
+}
+
+
+export interface Payment {
+    id: string;
+    userId: string;
+    plan: 'PRO' | 'PLATINUM' | 'TITANIUM' | 'SMS_PACK';
+    amount: number;
+    method: 'bKash' | 'Nagad' | 'Rocket' | 'SSL Commerz' | 'Piprapay' | 'MoynaPay';
+    senderNumber: string;
+    transactionId: string;
+    status: 'PENDING' | 'APPROVED' | 'REJECTED';
+    createdAt: string;
 }
 
 export interface OTP {
@@ -59,12 +79,14 @@ async function getDb(): Promise<DatabaseSchema> {
         if (!Array.isArray(db.users)) db.users = [];
         if (!Array.isArray(db.shops)) db.shops = [];
         if (!Array.isArray(db.transactions)) db.transactions = [];
+        if (!Array.isArray(db.transactions)) db.transactions = [];
         if (!Array.isArray(db.otps)) db.otps = [];
+        if (!Array.isArray(db.payments)) db.payments = [];
 
         return db;
     } catch (error) {
         // If file doesn't exist or error parsing, return default structure
-        return { users: [], shops: [], transactions: [], otps: [] };
+        return { users: [], shops: [], transactions: [], otps: [], payments: [] };
     }
 }
 
@@ -86,7 +108,9 @@ export async function createUser(name: string, mobile: string, password: string)
         name,
         mobile,
         password,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        subscriptionPlan: 'FREE',
+        smsBalance: 0,
     };
 
     db.users.push(newUser);
@@ -122,6 +146,35 @@ export async function getUserByMobile(mobile: string) {
 export async function getUserById(id: string) {
     const db = await getDb();
     return db.users.find(u => u.id === id);
+}
+
+export async function getAllUsersWithStats() {
+    const db = await getDb();
+    return db.users.map(user => {
+        const userShops = db.shops.filter(s => s.ownerId === user.id);
+        const shopIds = userShops.map(s => s.id);
+
+        // Get all transactions for these shops
+        const userTransactions = db.transactions.filter(t => shopIds.includes(t.shopId));
+
+        // Count unique customers
+        const uniqueCustomers = new Set(userTransactions.map(t => t.customerName)).size;
+
+        // Calculate total due (DUE - PAYMENT)
+        const totalDue = userTransactions.reduce((acc, t) => {
+            if (t.type === 'DUE') return acc + t.amount;
+            if (t.type === 'PAYMENT') return acc - t.amount;
+            return acc;
+        }, 0);
+
+        return {
+            ...user,
+            shopCount: userShops.length,
+            shopNames: userShops.map(s => s.name),
+            totalCustomers: uniqueCustomers,
+            totalDue: totalDue
+        };
+    });
 }
 
 // --- SHOP FUNCTIONS ---
@@ -202,6 +255,19 @@ export async function getTransactions(shopId: string) {
     return db.transactions.filter(t => t.shopId === shopId);
 }
 
+export async function deleteCustomerTransactions(shopId: string, customerName: string) {
+    const db = await getDb();
+    // Remove all transactions for this customer in this shop
+    db.transactions = db.transactions.filter(t => !(t.shopId === shopId && t.customerName === customerName));
+    await saveDb(db);
+}
+
+export async function getAllDueTransactions() {
+    const db = await getDb();
+    // Return all DUE transactions that have a dueDate
+    return db.transactions.filter(t => t.type === 'DUE' && t.dueDate);
+}
+
 export interface CustomerDue {
     name: string;
     phone: string;
@@ -263,4 +329,41 @@ export async function deleteOtp(mobile: string) {
     const db = await getDb();
     db.otps = db.otps.filter(o => o.mobile !== mobile);
     await saveDb(db);
+}
+
+// --- PAYMENT FUNCTIONS ---
+
+export async function createPayment(payment: Omit<Payment, 'id' | 'createdAt' | 'status'>) {
+    const db = await getDb();
+
+    const newPayment: Payment = {
+        ...payment,
+        id: Math.random().toString(36).substring(2, 9),
+        status: 'PENDING',
+        createdAt: new Date().toISOString()
+    };
+
+    db.payments.push(newPayment);
+    await saveDb(db);
+    return newPayment;
+}
+
+export async function getPaymentsByUser(userId: string) {
+    const db = await getDb();
+    return db.payments.filter(p => p.userId === userId);
+}
+
+export async function getAllPayments() {
+    const db = await getDb();
+    return db.payments;
+}
+
+export async function updatePaymentStatus(id: string, status: 'APPROVED' | 'REJECTED') {
+    const db = await getDb();
+    const index = db.payments.findIndex(p => p.id === id);
+    if (index === -1) throw new Error('Payment not found');
+
+    db.payments[index].status = status;
+    await saveDb(db);
+    return db.payments[index];
 }

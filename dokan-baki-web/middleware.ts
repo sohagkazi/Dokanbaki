@@ -7,7 +7,12 @@ export function middleware(request: NextRequest) {
     const shopId = request.cookies.get(SHOP_COOKIE)?.value;
     const path = request.nextUrl.pathname;
 
-    // 1. Auth Pages (Login/Register/Forgot Password)
+    // 1. Auth Pages (Login/Register/Forgot Password) & Public Pages & Admin
+    // 1. Auth Pages (Login/Register/Forgot Password) & Public Pages & Admin
+    if (path.startsWith('/admin')) {
+        return NextResponse.next();
+    }
+
     if (path === '/login' || path === '/register' || path === '/forgot-password') {
         if (userId) {
             // If logged in, redirect to Dashboard or Shop Selection
@@ -40,7 +45,7 @@ export function middleware(request: NextRequest) {
     }
 
     // If logged in but no shop context active, force selection (except for /shops and /user-profile)
-    if (!shopId && path !== '/shops' && !path.startsWith('/user-profile')) {
+    if (!shopId && path !== '/shops' && !path.startsWith('/user-profile') && !path.startsWith('/subscription')) {
         return NextResponse.redirect(new URL('/shops', request.url));
     }
 

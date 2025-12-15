@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { User, Phone, Lock, ArrowRight, BookOpen } from "lucide-react";
+import Image from "next/image";
+import { User, Phone, Lock, ArrowRight, BookOpen, ArrowLeft } from "lucide-react";
 import { registerUserAction } from "../actions";
 
 // ... imports
@@ -11,18 +12,18 @@ export default async function Register({ searchParams }: { searchParams: Promise
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans relative">
+
+
             <div className="absolute top-0 left-0 w-full px-6 py-6 sm:px-8">
-                <Link href="/" className="flex items-center gap-2 w-fit hover:opacity-80 transition">
-                    <div className="bg-blue-600 p-2 rounded-lg text-white">
-                        <BookOpen className="w-5 h-5" />
-                    </div>
-                    <span className="text-xl font-bold text-gray-900 tracking-tight">Dokan Baki</span>
+                <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition font-medium">
+                    <ArrowLeft className="w-5 h-5" />
+                    Back to Home
                 </Link>
             </div>
 
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="text-center">
-                    <h1 className="text-4xl font-extrabold text-blue-600 tracking-tight">Baki Khata</h1>
+                    <h1 className="text-4xl font-extrabold text-blue-600 tracking-tight">Dokan Baki</h1>
                     <p className="mt-2 text-gray-600">Create your user account</p>
                 </div>
             </div>

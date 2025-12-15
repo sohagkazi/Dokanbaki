@@ -105,6 +105,22 @@ export default function AddDueForm({ customers, prefillName }: { customers: Cust
                     />
                 </div>
             </div>
+            {/* Expected Payment Date */}
+            <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-700 ml-1">Expected Payment Date (Optional)</label>
+                <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Calendar className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                        name="dueDate"
+                        type="date"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 outline-none transition-all text-gray-600"
+                        placeholder="Select date"
+                    />
+                    <p className="text-xs text-gray-500 mt-1 ml-1">We will auto-remind the customer if not paid by this date.</p>
+                </div>
+            </div>
 
             <div className="pt-4 flex gap-3">
                 <Link href="/" className="flex-1 py-3.5 rounded-xl border border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 text-center transition">

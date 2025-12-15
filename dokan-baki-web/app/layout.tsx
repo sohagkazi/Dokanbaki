@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dokan Baki",
   description: "Your digital ledger",
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 export default async function RootLayout({

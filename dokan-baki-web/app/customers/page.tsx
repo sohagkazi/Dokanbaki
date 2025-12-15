@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MessageCircle } from "lucide-react";
 import { getTransactions } from "@/lib/db";
+import DeleteCustomerButton from "@/components/delete-customer-button";
 import { getCurrentShopId } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DownloadPDFButton from "@/components/download-pdf-button";
@@ -88,22 +89,35 @@ export default async function Customers() {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="divide-y divide-gray-100">
                         {customers.map((customer) => (
-                            <Link
-                                href={`/customer/${encodeURIComponent(customer.name)}`}
+                            <div
                                 key={customer.id}
-                                className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition block"
+                                className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition border-b border-gray-100 last:border-0"
                             >
-                                <div>
-                                    <p className="font-semibold text-gray-800">{customer.name}</p>
-                                    <p className="text-sm text-gray-500">{customer.phone}</p>
+                                <Link href={`/customer/${encodeURIComponent(customer.name)}`} className="flex-1 block focus:outline-none">
+                                    <div>
+                                        <p className="font-semibold text-gray-800 hover:text-blue-600 transition">{customer.name}</p>
+                                        <p className="text-sm text-gray-500">{customer.phone}</p>
+                                    </div>
+                                </Link>
+                                <div className="text-right flex items-center gap-4 pl-4">
+                                    <div className="flex flex-col items-end">
+                                        <p className="text-sm text-gray-500">Due</p>
+                                        <p className={`font-bold ${customer.due > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                                            ৳ {customer.due.toLocaleString()}
+                                        </p>
+                                    </div>
+                                    {customer.phone && (
+                                        <Link
+                                            href={`/send-message?name=${encodeURIComponent(customer.name)}&mobile=${customer.phone}`}
+                                            className="p-2.5 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition shadow-sm z-10"
+                                            title="Send Message"
+                                        >
+                                            <MessageCircle className="w-5 h-5" />
+                                        </Link>
+                                    )}
+                                    <DeleteCustomerButton customerName={customer.name} />
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-sm text-gray-500">Due</p>
-                                    <p className={`font-bold ${customer.due > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                                        ৳ {customer.due.toLocaleString()}
-                                    </p>
-                                </div>
-                            </Link>
+                            </div>
                         ))}
                         {customers.length === 0 && (
                             <div className="p-8 text-center text-gray-500">
