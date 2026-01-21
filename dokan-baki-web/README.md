@@ -31,6 +31,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy this app is to use the [Vercel Platform](https://vercel.com/new).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### One-Click Deploy
+
+Use the button below to deploy this project to Vercel. It will prompt you to set the required environment variables.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsohagkazi%2FDokanbaki&env=MONGODB_URI,NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_FIREBASE_PROJECT_ID,GCLOUD_PROJECT,FIREBASE_CLIENT_EMAIL,FIREBASE_PRIVATE_KEY,MOYNAPAY_API_KEY,PIPRAPAY_API_KEY)
+
+### Environment Variables
+
+You will need to configure the following environment variables in your Vercel project settings (referenced in `.env.example`):
+
+- `MONGODB_URI`: Your MongoDB connection string.
+- `NEXT_PUBLIC_APP_URL`: Your production URL (e.g., `https://dokan-baki.vercel.app`).
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: Your Firebase project ID.
+- `GCLOUD_PROJECT`: Same as Firebase project ID.
+- `FIREBASE_CLIENT_EMAIL`: Service account email for Firebase Admin.
+- `FIREBASE_PRIVATE_KEY`: Service account private key for Firebase Admin.
+- `MOYNAPAY_API_KEY` / `PIPRAPAY_API_KEY`: Payment gateway keys (if using).
