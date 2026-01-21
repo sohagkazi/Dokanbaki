@@ -1,0 +1,201 @@
+No Firebase app associated with site dokanbakikhata, injecting project default config.
+  You can link a Web app to a Hosting site here https://console.firebase.google.com/project/dokanbakikhata/settings/general/web
+
+   Thank you for trying our [3mearly preview[23m of Next.js support on Firebase Hosting.
+   [31mDuring the preview, support is best-effort and breaking changes can be expected. Proceed with caution.[39m[33m
+   The integration is known to work with Next.js version [3m12 - 15.0[23m. You may encounter errors.[39m
+
+   [1mDocumentation:[22m https://firebase.google.com/docs/hosting/frameworks/nextjs
+   [1mFile a bug:[22m https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   [1mSubmit a feature request:[22m https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+   ▲ Next.js 16.0.10 (Turbopack)
+
+   - Environments: .env.local
+
+
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+   Creating an optimized production build ...
+
+ ✓ Compiled successfully in 6.5s
+
+   Running TypeScript ...
+
+
+
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+   The following mandatory changes were made to your tsconfig.json:
+
+   	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+
+
+   Collecting page data using 11 workers ...
+
+Error [PageNotFoundError]: Cannot find module for page: /_not-found
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /add-payment
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /add-due
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/cron/check-overdue
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/piprapay/callback
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/piprapay/init
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/success
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /customers
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /debug
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /customer/[name]
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /due-list
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /forgot-password
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /notifications
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /payment-list
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /pricing
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /profile/edit
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/chat
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /search
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /register
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /subscription
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /user-profile/edit
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /subscription/checkout
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /send-message
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /user-profile
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /favicon.ico
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /profile
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/cancel
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/fail
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/init
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/moynapay/init
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+Error [PageNotFoundError]: Cannot find module for page: /api/payment/moynapay/callback
+    at ignore-listed frames {
+  code: 'ENOENT'
+}
+
+
+> Build error occurred
+
+Error: Failed to collect page data for /_not-found
+    at ignore-listed frames {
+  type: 'Error'
+}
+
+
+[1m[31mError:[39m[22m An unexpected error has occurred.

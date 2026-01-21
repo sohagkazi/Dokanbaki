@@ -1,0 +1,59 @@
+2025-12-16T15:31:22.581472Z I ssrdokanbakikhata: 
+2025-12-16T15:31:23.051313Z I ssrdokanbakikhata: 
+2025-12-16T15:31:23.308528Z I ssrdokanbakikhata: 
+2025-12-16T15:31:23.741431Z I ssrdokanbakikhata: 
+2025-12-16T15:31:24.475290Z I ssrdokanbakikhata: 
+2025-12-16T15:31:29.808867Z I ssrdokanbakikhata: 
+2025-12-16T15:31:32.713623Z I ssrdokanbakikhata: 
+2025-12-16T15:31:33.298928Z I ssrdokanbakikhata: 
+2025-12-16T15:31:33.640565Z I ssrdokanbakikhata: 
+2025-12-16T15:31:52.678361Z I ssrdokanbakikhata: 
+2025-12-16T15:31:54.496627Z I ssrdokanbakikhata: 
+2025-12-16T15:31:54.497534Z I ssrdokanbakikhata: 
+2025-12-16T15:31:54.520396Z I ssrdokanbakikhata: 
+2025-12-16T15:31:55.099363Z I ssrdokanbakikhata: 
+2025-12-16T15:31:55.106716Z I ssrdokanbakikhata: 
+2025-12-16T15:31:55.223821Z I ssrdokanbakikhata: 
+2025-12-16T15:36:04.148391Z I ssrdokanbakikhata: 
+2025-12-16T15:36:05.365224Z I ssrdokanbakikhata: 
+2025-12-16T15:36:05.723174Z I ssrdokanbakikhata: 
+2025-12-16T15:36:33.269646001Z N ssrdokanbakikhata: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","authenticationInfo":{"principalEmail":"sohagkaziconsole@gmail.com","principalSubject":"user:sohagkaziconsole@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"callerIp":"37.111.199.187","callerSuppliedUserAgent":"FirebaseCLI/15.0.0,gzip(gfe),gzip(gfe)","requestAttributes":{"time":"2025-12-16T15:36:32.437345796Z","auth":{}},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","authorizationInfo":[{"resource":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","permission":"cloudfunctions.functions.update","granted":true,"resourceAttributes":{"service":"cloudfunctions.googleapis.com","name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","type":"cloudfunctions.googleapis.com/Function"},"permissionType":"ADMIN_WRITE"}],"resourceName":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","request":{"@type":"type.googleapis.com/google.cloud.functions.v2.UpdateFunctionRequest","function":{"labels":{"firebase-functions-codebase":"firebase-frameworks-dokanbakikhata","firebase-functions-hash":"d6499ea5572eb92515c957ba456945c12c92b51b","deployment-tool":"cli-firebase"},"service_config":{"available_memory":"1024Mi","timeout_seconds":60,"max_instance_request_concurrency":80,"min_instance_count":0,"available_cpu":"1"},"name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","build_config":{"entry_point":"ssrdokanbakikhata","source":{},"runtime":"nodejs20"}},"update_mask":{"paths":["name","build_config.runtime","build_config.entry_point","build_config.source.storage_source.bucket","build_config.source.storage_source.object","build_config.environment_variables","service_config.environment_variables","service_config.ingress_settings","service_config.timeout_seconds","service_config.service_account_email","service_config.available_memory","service_config.min_instance_count","service_config.max_instance_count","service_config.max_instance_request_concurrency","service_config.available_cpu","service_config.vpc_connector","service_config.vpc_connector_egress_settings","labels"]}},"response":{"@type":"type.googleapis.com/google.longrunning.Operation"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2025-12-16T15:40:03.595747Z I ssrdokanbakikhata: 
+2025-12-16T15:40:06.003681Z I ssrdokanbakikhata: 
+2025-12-16T15:40:08.966345Z I ssrdokanbakikhata: Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.
+2025-12-16T15:40:11.213381Z I ssrdokanbakikhata: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2025-12-16T15:40:12.581514Z I ssrdokanbakikhata: 
+2025-12-16T15:40:12.835664Z I ssrdokanbakikhata: 
+2025-12-16T15:40:13.518548Z I ssrdokanbakikhata: 
+2025-12-16T15:40:13.519502Z I ssrdokanbakikhata: 
+2025-12-16T15:40:13.524519Z I ssrdokanbakikhata: 
+2025-12-16T15:40:13.882014Z I ssrdokanbakikhata: 
+2025-12-16T15:40:14.619904Z I ssrdokanbakikhata: 
+2025-12-16T15:40:15.308378Z I ssrdokanbakikhata: 
+2025-12-16T15:40:17.874228Z I ssrdokanbakikhata: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2025-12-16T15:40:19.539914Z I ssrdokanbakikhata: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2025-12-16T15:40:20.048886504Z N ssrdokanbakikhata: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","status":{},"authenticationInfo":{"principalEmail":"sohagkaziconsole@gmail.com","principalSubject":"user:sohagkaziconsole@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"requestAttributes":{},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","resourceName":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","response":{"updateTime":"2025-12-16T15:36:33.255373613Z","buildConfig":{"dockerRepository":"projects/dokanbakikhata/locations/us-central1/repositories/gcf-artifacts","serviceAccount":"projects/dokanbakikhata/serviceAccounts/49866951058-compute@developer.gserviceaccount.com","source":{},"automaticUpdatePolicy":{},"dockerRegistry":"ARTIFACT_REGISTRY","entryPoint":"ssrdokanbakikhata","runtime":"nodejs20"},"state":"ACTIVE","labels":{"firebase-functions-codebase":"firebase-frameworks-dokanbakikhata","firebase-functions-hash":"d6499ea5572eb92515c957ba456945c12c92b51b","deployment-tool":"cli-firebase"},"createTime":"2025-12-16T09:34:59.262048818Z","@type":"type.googleapis.com/google.cloud.functions.v2.Function","serviceConfig":{"maxInstanceRequestConcurrency":80,"availableMemory":"1024Mi","uri":"https://ssrdokanbakikhata-3qcjc34oaa-uc.a.run.app","serviceAccountEmail":"49866951058-compute@developer.gserviceaccount.com","revision":"ssrdokanbakikhata-00009-bax","maxInstanceCount":3,"availableCpu":"1","allTrafficOnLatestRevision":true,"timeoutSeconds":60,"ingressSettings":"ALLOW_ALL"},"name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","environment":"GEN_2","url":"https://us-central1-dokanbakikhata.cloudfunctions.net/ssrdokanbakikhata","satisfiesPzi":true},"resourceLocation":{"currentLocations":["us-central1"]}}
+2025-12-16T15:40:57.117739Z I ssrdokanbakikhata: 
+2025-12-16T15:40:59.051159Z ? ssrdokanbakikhata: [Firebase Admin] Using existing app: firebase-frameworks
+
+2025-12-16T15:40:59.054218Z ? ssrdokanbakikhata: [Firebase Admin] Using existing app: firebase-frameworks
+
+2025-12-16T15:41:05.783922Z I ssrdokanbakikhata: 
+2025-12-16T15:41:05.806156Z I ssrdokanbakikhata: 
+2025-12-16T15:41:05.873203Z I ssrdokanbakikhata: 
+2025-12-16T15:41:06.150897Z I ssrdokanbakikhata: 
+2025-12-16T15:41:06.171034Z I ssrdokanbakikhata: 
+2025-12-16T15:41:06.262720Z I ssrdokanbakikhata: 
+2025-12-16T15:41:06.981903Z ? ssrdokanbakikhata: (node:1) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 uncaughtException listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+2025-12-16T15:41:09.887139Z I ssrdokanbakikhata: 
+2025-12-16T15:41:11.511926Z I ssrdokanbakikhata: 
+2025-12-16T15:41:11.842056Z I ssrdokanbakikhata: 
+2025-12-16T15:41:29.446824Z E ssrdokanbakikhata: 
+2025-12-16T15:41:29.498225Z ? ssrdokanbakikhata:  ⨯ Error: Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.
+    at p (.next/server/chunks/ssr/[root-of-the-server]__98d9da13._.js:20:850)
+    at async m (.next/server/chunks/ssr/_8aaea38e._.js:1:6870) {
+  digest: '189693430'
+}
+

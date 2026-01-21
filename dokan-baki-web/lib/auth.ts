@@ -1,7 +1,8 @@
 import { cookies } from 'next/headers';
+import { USER_COOKIE, SHOP_COOKIE } from './constants';
 
-export const USER_COOKIE = 'user_session';
-export const SHOP_COOKIE = 'shop_context';
+export { USER_COOKIE, SHOP_COOKIE }; // Re-export for backward compatibility if needed, or better just use direct imports elsewhere
+
 
 // --- User Authentication ---
 
@@ -17,9 +18,12 @@ export async function logoutUser() {
     cookieStore.delete(SHOP_COOKIE);
 }
 
+import { trackUser } from './online-tracker';
+
 export async function getCurrentUserId() {
     const cookieStore = await cookies();
     const cookie = cookieStore.get(USER_COOKIE);
+    if (cookie?.value) trackUser(cookie.value);
     return cookie?.value;
 }
 
@@ -27,7 +31,6 @@ export async function getCurrentUserId() {
 
 export async function setShopContext(shopId: string) {
     const cookieStore = await cookies();
-    // Shop context lasts as long as the session or until switched
     cookieStore.set(SHOP_COOKIE, shopId, { httpOnly: true, path: '/' });
 }
 
@@ -39,5 +42,7 @@ export async function clearShopContext() {
 export async function getCurrentShopId() {
     const cookieStore = await cookies();
     const cookie = cookieStore.get(SHOP_COOKIE);
+    // Note: Tracking Shop ID implies user activity too if we map shop->user, 
+    // but strict "User" tracking is best done in getCurrentUserId or similar middleware.
     return cookie?.value;
 }

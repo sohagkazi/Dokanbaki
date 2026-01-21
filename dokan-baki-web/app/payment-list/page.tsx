@@ -15,17 +15,17 @@ export default async function PaymentList() {
     const allTransactions = await getTransactions(shopId);
 
     const payments = allTransactions
-        .filter(t => t.type === 'PAYMENT')
-        .sort((a, b) => {
+        .filter((t: any) => t.type === 'PAYMENT')
+        .sort((a: any, b: any) => {
             if (b.date !== a.date) return b.date.localeCompare(a.date);
             return b.createdAt.localeCompare(a.createdAt);
         });
 
-    const totalCollected = payments.reduce((sum, t) => sum + t.amount, 0);
+    const totalCollected = payments.reduce((sum: number, t: any) => sum + t.amount, 0);
 
     // Prepare data for PDF
     const pdfHeaders = ['Date', 'Customer', 'Mobile', 'Amount'];
-    const pdfData = payments.map(p => [
+    const pdfData = payments.map((p: any) => [
         p.date,
         p.customerName,
         p.mobileNumber || '-',
@@ -84,7 +84,7 @@ export default async function PaymentList() {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
-                                        {payments.map((payment) => (
+                                        {payments.map((payment: any) => (
                                             <tr key={payment.id} className="hover:bg-gray-50 transition">
                                                 <td className="px-6 py-4 text-gray-600 font-mono text-sm whitespace-nowrap">
                                                     <div className="flex items-center gap-2">

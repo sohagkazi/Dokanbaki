@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAllUsersWithStats } from "@/lib/db";
+import { getLiveUserCount } from "@/lib/online-tracker";
 import { logoutAction } from "@/app/actions";
 import { LogOut, LayoutDashboard, Users, Store, DollarSign } from "lucide-react";
 
@@ -16,9 +17,9 @@ export default async function AdminDashboard() {
 
     const users = await getAllUsersWithStats();
     const totalUsers = users.length;
-    const totalShops = users.reduce((acc, user) => acc + user.shopCount, 0);
-    const totalDue = users.reduce((acc, user) => acc + (user.totalDue || 0), 0);
-    // Simple mock metric for total due could be aggregated if needed, but "Total Users" is the request.
+    const totalShops = users.reduce((acc: number, user: any) => acc + user.shopCount, 0);
+    const totalDue = users.reduce((acc: number, user: any) => acc + (user.totalDue || 0), 0);
+    const liveUsers = getLiveUserCount(5); // Active in last 5 minutes
 
     return (
         <div className="min-h-screen bg-gray-50 font-sans">
@@ -46,7 +47,7 @@ export default async function AdminDashboard() {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     {/* Total Users Card */}
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
                         <div>
@@ -79,6 +80,21 @@ export default async function AdminDashboard() {
                             <DollarSign className="w-8 h-8 text-red-600" />
                         </div>
                     </div>
+
+                    {/* Live Online Users Card */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-500">Live Online</p>
+                            <h3 className="text-3xl font-bold text-green-600 mt-1">{liveUsers}</h3>
+                            <p className="text-xs text-green-500 mt-1">Active in last 5m</p>
+                        </div>
+                        <div className="bg-green-50 p-3 rounded-full">
+                            <div className="relative">
+                                <Users className="w-8 h-8 text-green-600" />
+                                <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white bg-green-400 animate-pulse" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="mb-6">
@@ -99,7 +115,7 @@ export default async function AdminDashboard() {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {users.map((user) => {
+                                {users.map((user: any) => {
                                     const plan = user.subscriptionPlan ? user.subscriptionPlan : 'FREE';
                                     return (
                                         <tr key={user.id}>

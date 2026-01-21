@@ -64,7 +64,7 @@ export default async function ShopsPage() {
 
                 {/* Shop List */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-                    {shops.map(shop => (
+                    {shops.map((shop: any) => (
                         <div key={shop.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col justify-between hover:shadow-md transition">
                             <div>
                                 <h3 className="text-lg font-bold text-gray-900">{shop.name}</h3>

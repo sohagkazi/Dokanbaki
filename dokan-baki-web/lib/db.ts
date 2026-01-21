@@ -1,181 +1,69 @@
-import fs from 'fs/promises';
-import path from 'path';
+import { JsonDB } from './json-db';
+import { User, Shop, Transaction, Notification, Payment, OTP, CustomerDue } from './types';
 
-const DB_PATH = path.join(process.cwd(), 'database.json');
-
-export interface User {
-    id: string;
-    name: string;
-    mobile: string;
-    password: string; // Hashed password
-    email?: string;
-    createdAt: string;
-    // Profile details
-    image?: string;
-    address?: string;
-    // Subscription details
-    subscriptionPlan: 'FREE' | 'PRO' | 'PLATINUM' | 'TITANIUM';
-    subscriptionExpiry?: string; // ISO Date string
-    smsBalance: number;
-}
-
-export interface Shop {
-    id: string;
-    ownerId: string; // Link to user
-    name: string;
-    mobile?: string; // Display mobile for shop contact
-    // Legacy fields (optional support for old data)
-    createdAt: string;
-    ownerName?: string;
-    address?: string;
-    image?: string;
-}
-
-export interface Transaction {
-    id: string;
-    shopId: string; // Link to shop
-    customerName: string;
-    mobileNumber: string;
-    amount: number;
-    type: 'DUE' | 'PAYMENT';
-    productName?: string; // Optional product details
-    date: string;
-    dueDate?: string; // Expected payment date for DUE
-    createdAt: string;
-}
-
-export interface DatabaseSchema {
-    users: User[];
-    shops: Shop[];
-    transactions: Transaction[];
-    otps: OTP[];
-    payments: Payment[];
-    notifications: Notification[];
-}
-
-export interface Notification {
-    id: string;
-    shopId: string;
-    message: string;
-    type: 'DUE_ALERT' | 'SYSTEM';
-    date: string; // ISO string
-    isRead: boolean;
-}
-
-
-export interface Payment {
-    id: string;
-    userId: string;
-    plan: 'PRO' | 'PLATINUM' | 'TITANIUM' | 'SMS_PACK';
-    amount: number;
-    method: 'bKash' | 'Nagad' | 'Rocket' | 'SSL Commerz' | 'Piprapay' | 'MoynaPay';
-    senderNumber: string;
-    transactionId: string;
-    status: 'PENDING' | 'APPROVED' | 'REJECTED';
-    createdAt: string;
-}
-
-export interface OTP {
-    mobile: string;
-    code: string;
-    expiresAt: string;
-}
-
-async function getDb(): Promise<DatabaseSchema> {
-    try {
-        const data = await fs.readFile(DB_PATH, 'utf-8');
-        const db = JSON.parse(data);
-
-        // Ensure structure is correct (simple migration)
-        if (!Array.isArray(db.users)) db.users = [];
-        if (!Array.isArray(db.shops)) db.shops = [];
-        if (!Array.isArray(db.transactions)) db.transactions = [];
-        if (!Array.isArray(db.transactions)) db.transactions = [];
-        if (!Array.isArray(db.otps)) db.otps = [];
-        if (!Array.isArray(db.transactions)) db.transactions = [];
-        if (!Array.isArray(db.otps)) db.otps = [];
-        if (!Array.isArray(db.payments)) db.payments = [];
-        if (!Array.isArray(db.notifications)) db.notifications = [];
-
-        return db;
-    } catch (error) {
-        // If file doesn't exist or error parsing, return default structure
-        return { users: [], shops: [], transactions: [], otps: [], payments: [], notifications: [] };
-    }
-}
-
-async function saveDb(data: DatabaseSchema) {
-    await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
-}
+export type { User, Shop, Transaction, Notification, Payment, OTP, CustomerDue };
 
 // --- USER FUNCTIONS ---
 
-export async function createUser(name: string, mobile: string, password: string) {
-    const db = await getDb();
-
-    if (db.users.find(u => u.mobile === mobile)) {
+export async function createUser(name: string, mobile: string, password: string, email?: string) {
+    // Check mobile uniqueness
+    const existingMobile = JsonDB.findOne('users', { mobile });
+    if (existingMobile) {
         throw new Error('User with this mobile number already exists');
     }
 
-    const newUser: User = {
-        id: Math.random().toString(36).substring(2, 9),
+    // Check email uniqueness if provided
+    if (email) {
+        const existingEmail = JsonDB.findOne('users', { email });
+        if (existingEmail) {
+            throw new Error('User with this email already exists');
+        }
+    }
+
+    const newUser = {
         name,
         mobile,
         password,
-        createdAt: new Date().toISOString(),
+        email: email || '',
         subscriptionPlan: 'FREE',
-        smsBalance: 0,
+        smsBalance: 0
     };
 
-    db.users.push(newUser);
-    await saveDb(db);
-    return newUser;
+    const created = JsonDB.insert('users', newUser);
+    return created;
+}
+
+export async function getUserByEmail(email: string) {
+    return JsonDB.findOne('users', { email });
 }
 
 export async function updateUser(id: string, data: Partial<User>) {
-    const db = await getDb();
-    const userIndex = db.users.findIndex(u => u.id === id);
-
-    if (userIndex === -1) {
-        throw new Error('User not found');
-    }
-
-    const updatedUser = {
-        ...db.users[userIndex],
-        ...data,
-        id: db.users[userIndex].id, // Prevent ID override
-        createdAt: db.users[userIndex].createdAt // Prevent createdAt override
-    };
-
-    db.users[userIndex] = updatedUser;
-    await saveDb(db);
-    return updatedUser;
+    return JsonDB.update('users', id, data);
 }
 
 export async function getUserByMobile(mobile: string) {
-    const db = await getDb();
-    return db.users.find(u => u.mobile === mobile);
+    return JsonDB.findOne('users', { mobile });
 }
 
 export async function getUserById(id: string) {
-    const db = await getDb();
-    return db.users.find(u => u.id === id);
+    return JsonDB.findOne('users', { id });
 }
 
 export async function getAllUsersWithStats() {
-    const db = await getDb();
-    return db.users.map(user => {
-        const userShops = db.shops.filter(s => s.ownerId === user.id);
-        const shopIds = userShops.map(s => s.id);
+    const users = JsonDB.get('users');
 
-        // Get all transactions for these shops
-        const userTransactions = db.transactions.filter(t => shopIds.includes(t.shopId));
+    return users.map((user: User) => {
+        const shops = JsonDB.find('shops', { ownerId: user.id });
 
-        // Count unique customers
-        const uniqueCustomers = new Set(userTransactions.map(t => t.customerName)).size;
+        let allTransactions: Transaction[] = [];
+        for (const shop of shops) {
+            const ts = JsonDB.find('transactions', { shopId: shop.id });
+            allTransactions.push(...ts);
+        }
 
-        // Calculate total due (DUE - PAYMENT)
-        const totalDue = userTransactions.reduce((acc, t) => {
+        const uniqueCustomers = new Set(allTransactions.map(t => t.customerName)).size;
+
+        const totalDue = allTransactions.reduce((acc, t) => {
             if (t.type === 'DUE') return acc + t.amount;
             if (t.type === 'PAYMENT') return acc - t.amount;
             return acc;
@@ -183,8 +71,8 @@ export async function getAllUsersWithStats() {
 
         return {
             ...user,
-            shopCount: userShops.length,
-            shopNames: userShops.map(s => s.name),
+            shopCount: shops.length,
+            shopNames: shops.map((s: any) => s.name),
             totalCustomers: uniqueCustomers,
             totalDue: totalDue
         };
@@ -194,106 +82,55 @@ export async function getAllUsersWithStats() {
 // --- SHOP FUNCTIONS ---
 
 export async function createShop(ownerId: string, name: string, mobile: string) {
-    const db = await getDb();
-
-    const newShop: Shop = {
-        id: Math.random().toString(36).substring(2, 9),
+    const newShop = {
         ownerId,
         name,
-        mobile,
-        createdAt: new Date().toISOString()
+        mobile
     };
-
-    db.shops.push(newShop);
-    await saveDb(db);
-    return newShop;
+    return JsonDB.insert('shops', newShop);
 }
 
 export async function updateShop(id: string, data: Partial<Shop>) {
-    const db = await getDb();
-    const shopIndex = db.shops.findIndex(s => s.id === id);
-
-    if (shopIndex === -1) {
-        throw new Error('Shop not found');
-    }
-
-    // Merge existing shop data with new data (excluding id and createdAt for safety)
-    const updatedShop = {
-        ...db.shops[shopIndex],
-        ...data,
-        id: db.shops[shopIndex].id, // Ensure ID doesn't change
-        createdAt: db.shops[shopIndex].createdAt // Ensure createdAt doesn't change
-    };
-
-    db.shops[shopIndex] = updatedShop;
-    await saveDb(db);
-    return updatedShop;
+    return JsonDB.update('shops', id, data);
 }
 
 export async function getShopById(id: string) {
-    const db = await getDb();
-    return db.shops.find(s => s.id === id);
+    return JsonDB.findOne('shops', { id });
 }
 
 export async function getShopsByOwner(ownerId: string) {
-    const db = await getDb();
-    return db.shops.filter(s => s.ownerId === ownerId);
+    return JsonDB.find('shops', { ownerId });
 }
 
-// Legacy support (can remove if migrated fully)
 export async function getShopByMobile(mobile: string) {
-    const db = await getDb();
-    return db.shops.find(s => s.mobile === mobile);
+    return JsonDB.findOne('shops', { mobile });
 }
 
 // --- TRANSACTION FUNCTIONS ---
 
 export async function addTransaction(transaction: Omit<Transaction, 'id' | 'createdAt'>) {
-    const db = await getDb();
-
-    const newTransaction: Transaction = {
-        ...transaction,
-        id: Math.random().toString(36).substring(2, 9), // Simple ID generation
-        createdAt: new Date().toISOString(),
-    };
-
-    db.transactions.push(newTransaction);
-    await saveDb(db);
-
-    return newTransaction;
+    return JsonDB.insert('transactions', transaction);
 }
 
 export async function getTransactions(shopId: string) {
-    const db = await getDb();
-    // Filter transactions by shopId
-    return db.transactions.filter(t => t.shopId === shopId);
+    return JsonDB.find('transactions', { shopId });
 }
 
 export async function deleteCustomerTransactions(shopId: string, customerName: string) {
-    const db = await getDb();
-    // Remove all transactions for this customer in this shop
-    db.transactions = db.transactions.filter(t => !(t.shopId === shopId && t.customerName === customerName));
-    await saveDb(db);
+    // Requires delete logic in JsonDB
+    JsonDB.delete('transactions', { shopId, customerName });
 }
 
 export async function getAllDueTransactions() {
-    const db = await getDb();
-    // Return all DUE transactions that have a dueDate
-    return db.transactions.filter(t => t.type === 'DUE' && t.dueDate);
-}
-
-export interface CustomerDue {
-    name: string;
-    phone: string;
-    totalDue: number;
-    lastDate?: string;
+    const transactions = JsonDB.get('transactions');
+    return transactions.filter((t: Transaction) => t.type === 'DUE' && t.dueDate);
 }
 
 export async function getCustomersWithDue(shopId: string): Promise<CustomerDue[]> {
     const transactions = await getTransactions(shopId);
     const customerMap = new Map<string, CustomerDue>();
 
-    transactions.forEach(t => {
+    transactions.forEach((t: Transaction) => {
         if (!customerMap.has(t.customerName)) {
             customerMap.set(t.customerName, {
                 name: t.customerName,
@@ -308,10 +145,9 @@ export async function getCustomersWithDue(shopId: string): Promise<CustomerDue[]
         } else {
             customer.totalDue -= t.amount;
         }
-        // Update phone if the new transaction has a phone (simplified logic)
+
         if (t.mobileNumber) customer.phone = t.mobileNumber;
 
-        // Update lastDate if current transaction date is newer (lexicographical comparison for ISO dates works)
         if (t.date > (customer.lastDate || '')) {
             customer.lastDate = t.date;
         }
@@ -323,96 +159,56 @@ export async function getCustomersWithDue(shopId: string): Promise<CustomerDue[]
 // --- OTP FUNCTIONS ---
 
 export async function saveOtp(mobile: string, code: string) {
-    const db = await getDb();
-    // Remove existing OTP for this mobile
-    db.otps = db.otps.filter(o => o.mobile !== mobile);
+    // Remove old for this mobile
+    JsonDB.delete('otps', { mobile });
 
-    // Add new OTP (expires in 5 minutes)
-    const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();
-    db.otps.push({ mobile, code, expiresAt });
-
-    await saveDb(db);
+    JsonDB.insert('otps', {
+        mobile,
+        code,
+        expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString()
+    });
 }
 
 export async function getOtp(mobile: string) {
-    const db = await getDb();
-    return db.otps.find(o => o.mobile === mobile);
+    return JsonDB.findOne('otps', { mobile });
 }
 
 export async function deleteOtp(mobile: string) {
-    const db = await getDb();
-    db.otps = db.otps.filter(o => o.mobile !== mobile);
-    await saveDb(db);
+    JsonDB.delete('otps', { mobile });
 }
 
-// --- PAYMENT FUNCTIONS ---
+// --- PAYMENT & NOTIFICATION STUBS ---
 
-export async function createPayment(payment: Omit<Payment, 'id' | 'createdAt' | 'status'>) {
-    const db = await getDb();
-
-    const newPayment: Payment = {
-        ...payment,
-        id: Math.random().toString(36).substring(2, 9),
-        status: 'PENDING',
-        createdAt: new Date().toISOString()
-    };
-
-    db.payments.push(newPayment);
-    await saveDb(db);
-    return newPayment;
+export async function createPayment(payment: any) {
+    return JsonDB.insert('payments', { ...payment, status: 'PENDING' });
 }
 
 export async function getPaymentsByUser(userId: string) {
-    const db = await getDb();
-    return db.payments.filter(p => p.userId === userId);
+    return JsonDB.find('payments', { userId });
 }
 
 export async function getAllPayments() {
-    const db = await getDb();
-    return db.payments;
+    return JsonDB.get('payments');
 }
 
-export async function updatePaymentStatus(id: string, status: 'APPROVED' | 'REJECTED') {
-    const db = await getDb();
-    const index = db.payments.findIndex(p => p.id === id);
-    if (index === -1) throw new Error('Payment not found');
-
-    db.payments[index].status = status;
-    await saveDb(db);
-    return db.payments[index];
+export async function updatePaymentStatus(id: string, status: string) {
+    return JsonDB.update('payments', id, { status });
 }
 
-
-// --- NOTIFICATION FUNCTIONS ---
-
-export async function createNotification(notification: Omit<Notification, 'id'>) {
-    const db = await getDb();
-    const newNotification: Notification = {
-        ...notification,
-        id: Math.random().toString(36).substring(2, 9),
-    };
-    db.notifications.push(newNotification);
-    await saveDb(db);
-    return newNotification;
+export async function createNotification(notification: any) {
+    return JsonDB.insert('notifications', notification);
 }
 
 export async function getShopNotifications(shopId: string) {
-    const db = await getDb();
-    return db.notifications
-        .filter(n => n.shopId === shopId)
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const notifs = JsonDB.find('notifications', { shopId });
+    return notifs.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export async function markNotificationRead(id: string) {
-    const db = await getDb();
-    const index = db.notifications.findIndex(n => n.id === id);
-    if (index !== -1) {
-        db.notifications[index].isRead = true;
-        await saveDb(db);
-    }
+    JsonDB.update('notifications', id, { isRead: true });
 }
 
 export async function getUnreadNotificationCount(shopId: string) {
-    const db = await getDb();
-    return db.notifications.filter(n => n.shopId === shopId && !n.isRead).length;
+    const notifs = JsonDB.find('notifications', { shopId, isRead: false });
+    return notifs.length;
 }

@@ -12,6 +12,7 @@ interface PageProps {
 }
 
 import DownloadPDFButton from "@/components/download-pdf-button";
+import CustomerTransactionActions from "@/components/customer-transaction-actions";
 
 export default async function CustomerDetails({ params }: PageProps) {
     const shopId = await getCurrentShopId();
@@ -22,8 +23,8 @@ export default async function CustomerDetails({ params }: PageProps) {
 
     const allTransactions = await getTransactions(shopId);
     const customerTransactions = allTransactions
-        .filter(t => t.customerName === decodedName)
-        .sort((a, b) => {
+        .filter((t: any) => t.customerName === decodedName)
+        .sort((a: any, b: any) => {
             // Sort by date descending
             if (b.date !== a.date) return b.date.localeCompare(a.date);
             return b.createdAt.localeCompare(a.createdAt);
@@ -39,15 +40,15 @@ export default async function CustomerDetails({ params }: PageProps) {
     }
 
     // Calculate generic stats
-    const totalDue = customerTransactions.reduce((acc, t) => {
+    const totalDue = customerTransactions.reduce((acc: number, t: any) => {
         return t.type === 'DUE' ? acc + t.amount : acc - t.amount;
     }, 0);
 
-    const mobileNumber = customerTransactions.find(t => t.mobileNumber)?.mobileNumber;
+    const mobileNumber = customerTransactions.find((t: any) => t.mobileNumber)?.mobileNumber;
 
     // Prepare data for PDF
     const pdfHeaders = ['Date', 'Type', 'Amount'];
-    const pdfData = customerTransactions.map(t => [
+    const pdfData = customerTransactions.map((t: any) => [
         t.date,
         t.type,
         t.amount.toLocaleString()
@@ -96,14 +97,12 @@ export default async function CustomerDetails({ params }: PageProps) {
             <main className="max-w-3xl mx-auto px-4 -mt-10 relative z-10 pb-10">
                 <div className="space-y-4">
                     {/* Action Buttons */}
-                    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-3 overflow-x-auto">
-                        <Link href={`/add-due?name=${encodeURIComponent(decodedName)}`} className="flex-1 bg-red-50 hover:bg-red-100 text-red-700 py-3 rounded-lg font-bold text-center border border-red-200 transition whitespace-nowrap px-4">
-                            + Add Due
-                        </Link>
-                        <Link href={`/add-payment?name=${encodeURIComponent(decodedName)}`} className="flex-1 bg-green-50 hover:bg-green-100 text-green-700 py-3 rounded-lg font-bold text-center border border-green-200 transition whitespace-nowrap px-4">
-                            + Add Payment
-                        </Link>
-                    </div>
+                    {/* Action Buttons (Inline) */}
+                    <CustomerTransactionActions
+                        customerName={decodedName}
+                        customerPhone={mobileNumber}
+                        shopId={shopId}
+                    />
 
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100">
@@ -119,7 +118,7 @@ export default async function CustomerDetails({ params }: PageProps) {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-100">
-                                    {customerTransactions.map((tx) => (
+                                    {customerTransactions.map((tx: any) => (
                                         <tr key={tx.id} className="hover:bg-gray-50 transition">
                                             <td className="px-6 py-4 text-gray-600 font-mono text-sm whitespace-nowrap">
                                                 <div className="flex items-center gap-2">

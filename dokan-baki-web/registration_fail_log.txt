@@ -1,0 +1,96 @@
+2025-12-16T15:09:54.624915Z E ssrdokanbakikhata: 
+2025-12-16T15:09:54.665929Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:09:54.667817Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:35.738052Z E ssrdokanbakikhata: 
+2025-12-16T15:13:35.807441Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:35.810053Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:36.038136Z E ssrdokanbakikhata: 
+2025-12-16T15:13:36.100427Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:36.104909Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:18:15.874511625Z N ssrdokanbakikhata: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","authenticationInfo":{"principalEmail":"sohagkaziconsole@gmail.com","principalSubject":"user:sohagkaziconsole@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"callerIp":"37.111.199.187","callerSuppliedUserAgent":"FirebaseCLI/15.0.0,gzip(gfe),gzip(gfe)","requestAttributes":{"time":"2025-12-16T15:18:15.086174259Z","auth":{}},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","authorizationInfo":[{"resource":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","permission":"cloudfunctions.functions.update","granted":true,"resourceAttributes":{"service":"cloudfunctions.googleapis.com","name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","type":"cloudfunctions.googleapis.com/Function"},"permissionType":"ADMIN_WRITE"}],"resourceName":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","request":{"@type":"type.googleapis.com/google.cloud.functions.v2.UpdateFunctionRequest","function":{"build_config":{"source":{},"entry_point":"ssrdokanbakikhata","runtime":"nodejs20"},"service_config":{"available_memory":"1024Mi","available_cpu":"1","max_instance_request_concurrency":80,"min_instance_count":0,"timeout_seconds":60},"name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"73818158ad6eba6fae9e4aa24f31bbe66d8ceb80","firebase-functions-codebase":"firebase-frameworks-dokanbakikhata"}},"update_mask":{"paths":["name","build_config.runtime","build_config.entry_point","build_config.source.storage_source.bucket","build_config.source.storage_source.object","build_config.environment_variables","service_config.environment_variables","service_config.ingress_settings","service_config.timeout_seconds","service_config.service_account_email","service_config.available_memory","service_config.min_instance_count","service_config.max_instance_count","service_config.max_instance_request_concurrency","service_config.available_cpu","service_config.vpc_connector","service_config.vpc_connector_egress_settings","labels"]}},"response":{"@type":"type.googleapis.com/google.longrunning.Operation"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2025-12-16T15:20:30.307470Z I ssrdokanbakikhata: Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.
+2025-12-16T15:20:32.078327Z I ssrdokanbakikhata: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2025-12-16T15:20:33.380637Z I ssrdokanbakikhata: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2025-12-16T15:20:35.243367Z I ssrdokanbakikhata: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2025-12-16T15:20:35.691099687Z N ssrdokanbakikhata: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","status":{},"authenticationInfo":{"principalEmail":"sohagkaziconsole@gmail.com","principalSubject":"user:sohagkaziconsole@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"requestAttributes":{},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","resourceName":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","response":{"serviceConfig":{"serviceAccountEmail":"49866951058-compute@developer.gserviceaccount.com","maxInstanceCount":3,"availableCpu":"1","uri":"https://ssrdokanbakikhata-3qcjc34oaa-uc.a.run.app","allTrafficOnLatestRevision":true,"timeoutSeconds":60,"availableMemory":"1024Mi","maxInstanceRequestConcurrency":80,"ingressSettings":"ALLOW_ALL","revision":"ssrdokanbakikhata-00007-meb"},"satisfiesPzi":true,"url":"https://us-central1-dokanbakikhata.cloudfunctions.net/ssrdokanbakikhata","@type":"type.googleapis.com/google.cloud.functions.v2.Function","labels":{"firebase-functions-codebase":"firebase-frameworks-dokanbakikhata","firebase-functions-hash":"73818158ad6eba6fae9e4aa24f31bbe66d8ceb80","deployment-tool":"cli-firebase"},"createTime":"2025-12-16T09:34:59.262048818Z","state":"ACTIVE","buildConfig":{"runtime":"nodejs20","dockerRepository":"projects/dokanbakikhata/locations/us-central1/repositories/gcf-artifacts","dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/dokanbakikhata/serviceAccounts/49866951058-compute@developer.gserviceaccount.com","source":{},"entryPoint":"ssrdokanbakikhata","automaticUpdatePolicy":{}},"environment":"GEN_2","name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","updateTime":"2025-12-16T15:18:15.862245825Z"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2025-12-16T15:21:11.299679Z I ssrdokanbakikhata: 
+2025-12-16T15:21:13.274029Z ? ssrdokanbakikhata: [Firebase Admin] Using existing app: firebase-frameworks
+
+2025-12-16T15:21:13.278105Z ? ssrdokanbakikhata: [Firebase Admin] Using existing app: firebase-frameworks
+
+2025-12-16T15:21:16.099346Z I ssrdokanbakikhata: 
+2025-12-16T15:21:16.113950Z I ssrdokanbakikhata: 
+2025-12-16T15:21:16.950003Z I ssrdokanbakikhata: 
+2025-12-16T15:21:17.402941Z I ssrdokanbakikhata: 
+2025-12-16T15:21:17.606437Z I ssrdokanbakikhata: 
+2025-12-16T15:21:17.984963Z I ssrdokanbakikhata: 
+2025-12-16T15:21:19.092069Z ? ssrdokanbakikhata: (node:1) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 uncaughtException listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+2025-12-16T15:21:30.875622Z I ssrdokanbakikhata: 
+2025-12-16T15:21:31.320006Z I ssrdokanbakikhata: 
+2025-12-16T15:21:31.664240Z I ssrdokanbakikhata: 
+2025-12-16T15:21:36.728259Z I ssrdokanbakikhata: 
+2025-12-16T15:21:53.721433Z I ssrdokanbakikhata: 
+2025-12-16T15:21:55.019549Z I ssrdokanbakikhata: 
+2025-12-16T15:21:55.020226Z I ssrdokanbakikhata: 
+2025-12-16T15:21:55.040113Z I ssrdokanbakikhata: 
+2025-12-16T15:21:55.477311Z I ssrdokanbakikhata: 
+2025-12-16T15:21:56.050761Z I ssrdokanbakikhata: 
+2025-12-16T15:21:56.568929Z I ssrdokanbakikhata: 
+2025-12-16T15:21:59.522143Z I ssrdokanbakikhata: 
+2025-12-16T15:21:59.973754Z I ssrdokanbakikhata: 
+2025-12-16T15:22:00.434777Z I ssrdokanbakikhata: 
+2025-12-16T15:22:01.703537Z I ssrdokanbakikhata: 
+2025-12-16T15:22:29.327513Z I ssrdokanbakikhata: 
+2025-12-16T15:22:29.977933Z ? ssrdokanbakikhata: Error: 5 NOT_FOUND: 
+    at ignore-listed frames {
+  code: 5,
+  details: '',
+  metadata: [Metadata]
+}
+
+2025-12-16T15:22:30.087018Z I ssrdokanbakikhata: 
+2025-12-16T15:22:30.805580Z I ssrdokanbakikhata: 
+2025-12-16T15:22:30.809118Z I ssrdokanbakikhata: 
+2025-12-16T15:22:31.140017Z I ssrdokanbakikhata: 
+2025-12-16T15:22:31.155075Z I ssrdokanbakikhata: 
+2025-12-16T15:23:07.869969Z I ssrdokanbakikhata: 
+2025-12-16T15:23:08.492832Z I ssrdokanbakikhata: 
+2025-12-16T15:23:08.918414Z I ssrdokanbakikhata: 

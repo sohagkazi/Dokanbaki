@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, Save, MapPin } from "lucide-react";
 import { updateUserProfile } from "../../actions";
 import ImageUpload from "@/components/image-upload";
-import { User } from "@/lib/db";
+import { User } from "@/lib/types";
 
 export default function EditUserProfileForm({ user }: { user: User }) {
     return (

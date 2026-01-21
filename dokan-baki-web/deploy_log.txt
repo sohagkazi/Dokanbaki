@@ -1,0 +1,99 @@
+No Firebase app associated with site dokanbakikhata, injecting project default config.
+  You can link a Web app to a Hosting site here https://console.firebase.google.com/project/dokanbakikhata/settings/general/web
+
+   Thank you for trying our [3mearly preview[23m of Next.js support on Firebase Hosting.
+   [31mDuring the preview, support is best-effort and breaking changes can be expected. Proceed with caution.[39m
+
+   [1mDocumentation:[22m https://firebase.google.com/docs/hosting/frameworks/nextjs
+   [1mFile a bug:[22m https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   [1mSubmit a feature request:[22m https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+ ⚠ Invalid next.config.ts options detected: 
+ ⚠     Unrecognized key(s) in object: 'allowedDevOrigins', 'turbopack'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+
+   ▲ Next.js 15.0.3
+
+   - Environments: .env.local
+
+
+   Creating an optimized production build ...
+
+ ✓ Compiled successfully
+
+   Linting and checking validity of types ...
+
+ ⨯ ESLint: Cannot find module 'E:\MY SAAS\dokan-baki-web\node_modules\eslint-config-next\core-web-vitals' imported from E:\MY SAAS\dokan-baki-web\eslint.config.mjs Did you mean to import "eslint-config-next/core-web-vitals.js"?
+
+   Collecting page data ...
+
+   Generating static pages (0/24) ...
+
+   Generating static pages (6/24) 
+
+   Generating static pages (12/24) 
+
+   Generating static pages (18/24) 
+
+ ✓ Generating static pages (24/24)
+
+   Finalizing page optimization ...
+
+   Collecting build traces ...
+
+
+
+Route (app)                              Size     First Load JS
+┌ ƒ /                                    207 B           110 kB
+├ ƒ /_not-found                          905 B           101 kB
+├ ƒ /add-due                             2.83 kB         112 kB
+├ ƒ /add-payment                         2.98 kB         112 kB
+├ ƒ /admin/dashboard                     177 B           100 kB
+├ ƒ /admin/login                         177 B           100 kB
+├ ƒ /api/chat                            177 B           100 kB
+├ ƒ /api/cron/check-overdue              177 B           100 kB
+├ ƒ /api/payment/cancel                  177 B           100 kB
+├ ƒ /api/payment/fail                    177 B           100 kB
+├ ƒ /api/payment/init                    177 B           100 kB
+├ ƒ /api/payment/moynapay/callback       177 B           100 kB
+├ ƒ /api/payment/moynapay/init           177 B           100 kB
+├ ƒ /api/payment/piprapay/callback       177 B           100 kB
+├ ƒ /api/payment/piprapay/init           177 B           100 kB
+├ ƒ /api/payment/success                 177 B           100 kB
+├ ƒ /customer/[name]                     716 B           249 kB
+├ ƒ /customers                           1.84 kB         251 kB
+├ ƒ /debug                               177 B           100 kB
+├ ƒ /due-list                            716 B           249 kB
+├ ƒ /forgot-password                     1.72 kB         111 kB
+├ ƒ /login                               207 B           110 kB
+├ ƒ /notifications                       2.03 kB         111 kB
+├ ƒ /payment-list                        716 B           249 kB
+├ ƒ /pricing                             207 B           110 kB
+├ ƒ /profile                             207 B           110 kB
+├ ƒ /profile/edit                        188 B           113 kB
+├ ƒ /register                            207 B           110 kB
+├ ƒ /search                              2.1 kB          111 kB
+├ ƒ /send-message                        207 B           110 kB
+├ ƒ /shops                               207 B           110 kB
+├ ƒ /subscription                        207 B           110 kB
+├ ƒ /subscription/checkout               1.64 kB         111 kB
+├ ƒ /user-profile                        207 B           110 kB
+└ ƒ /user-profile/edit                   1.6 kB          114 kB
++ First Load JS shared by all            100 kB
+  ├ chunks/1517-085010a96dfa4e54.js      45.7 kB
+  ├ chunks/4bd1b696-29cf6f3bdde2893c.js  52.5 kB
+  └ other shared chunks (total)          2.06 kB
+
+
+ƒ Middleware                             31.1 kB
+
+
+ƒ  (Dynamic)  server-rendered on demand
+
+
+
+[1m[31mError:[39m[22m Next.js version 15.0.3 is vulnerable to CVE-2025-66478.
+Please upgrade to a patched version: 15.0.5+, 15.1.9+, 15.2.6+, 15.3.6+, 15.4.8+, or 15.5.7+.
+See https://nextjs.org/blog/CVE-2025-66478 for more details.

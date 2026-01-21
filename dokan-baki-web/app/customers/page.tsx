@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { getTransactions } from "@/lib/db";
-import DeleteCustomerButton from "@/components/delete-customer-button";
+import DeleteCustomerButton from "@/components/delete-customer-button"; // Kept for reference or remove if fully replaced in item
+import CustomerListItem from "@/components/customer-list-item";
 import { getCurrentShopId } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DownloadPDFButton from "@/components/download-pdf-button";
@@ -17,7 +18,7 @@ export default async function Customers() {
     // Calculate stats per customer
     const customerMap = new Map();
 
-    transactions.forEach(t => {
+    transactions.forEach((t: any) => {
         if (!customerMap.has(t.customerName)) {
             customerMap.set(t.customerName, {
                 id: t.customerName, // using name as ID for now
@@ -89,27 +90,7 @@ export default async function Customers() {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="divide-y divide-gray-100">
                         {customers.map((customer) => (
-                            <div
-                                key={customer.id}
-                                className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition border-b border-gray-100 last:border-0"
-                            >
-                                <Link href={`/customer/${encodeURIComponent(customer.name)}`} className="flex-1 block focus:outline-none">
-                                    <div>
-                                        <p className="font-semibold text-gray-800 hover:text-blue-600 transition">{customer.name}</p>
-                                        <p className="text-sm text-gray-500">{customer.phone}</p>
-                                    </div>
-                                </Link>
-                                <div className="text-right flex items-center gap-4 pl-4">
-                                    <div className="flex flex-col items-end">
-                                        <p className="text-sm text-gray-500">Due</p>
-                                        <p className={`font-bold ${customer.due > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                                            ৳ {customer.due.toLocaleString()}
-                                        </p>
-                                    </div>
-
-                                    <DeleteCustomerButton customerName={customer.name} />
-                                </div>
-                            </div>
+                            <CustomerListItem key={customer.id} shopId={shopId} customer={customer} />
                         ))}
                         {customers.length === 0 && (
                             <div className="p-8 text-center text-gray-500">

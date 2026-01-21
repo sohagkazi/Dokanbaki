@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { USER_COOKIE, SHOP_COOKIE } from './lib/auth';
+import { USER_COOKIE, SHOP_COOKIE } from './lib/constants';
 
 export function middleware(request: NextRequest) {
     const userId = request.cookies.get(USER_COOKIE)?.value;

@@ -1,5 +1,15 @@
 {
   "projects": {
-    "default": "dokan-baki-e4085"
-  }
+    "default": "dokanbakikhata"
+  },
+  "targets": {
+    "dokanbakikhata": {
+      "hosting": {
+        "dokanbakikhata": [
+          "dokanbakikhata"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

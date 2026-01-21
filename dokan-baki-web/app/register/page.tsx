@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { User, Phone, Lock, ArrowRight, BookOpen, ArrowLeft } from "lucide-react";
+import { User, Phone, Lock, ArrowRight, BookOpen, ArrowLeft, Mail } from "lucide-react";
 import { registerUserAction } from "../actions";
 
 // ... imports
@@ -37,6 +37,18 @@ export default async function Register({ searchParams }: { searchParams: Promise
                             <p>This mobile number is already registered.</p>
                         </div>
                     )}
+                    {error === 'email_exists' && (
+                        <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md flex items-center gap-2 text-sm">
+                            <AlertCircle className="w-5 h-5" />
+                            <p>This email is already registered.</p>
+                        </div>
+                    )}
+                    {error === 'weak_password' && (
+                        <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md flex items-center gap-2 text-sm">
+                            <AlertCircle className="w-5 h-5" />
+                            <p>Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.</p>
+                        </div>
+                    )}
                     {error === 'registration_failed' && (
                         <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md flex items-center gap-2 text-sm">
                             <AlertCircle className="w-5 h-5" />
@@ -59,6 +71,23 @@ export default async function Register({ searchParams }: { searchParams: Promise
                                     required
                                     className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
                                     placeholder="John Doe"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Email */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Email Address (Optional)</label>
+                            <div className="mt-1 relative rounded-md shadow-sm">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <Phone className="h-5 w-5 text-gray-400" />
+                                    {/* Using Phone icon for now or switch to Mail icon if available */}
+                                </div>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
+                                    placeholder="you@example.com"
                                 />
                             </div>
                         </div>

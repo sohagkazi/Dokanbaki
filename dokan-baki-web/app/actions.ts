@@ -3,7 +3,7 @@
 import bcrypt from 'bcryptjs';
 
 // ... (other imports remain, but ensure to keep them or re-add them if replacement overrides)
-import { addTransaction, createShop, createUser, getUserByMobile, getShopsByOwner, updateShop, updateUser, getUserById, createPayment, updatePaymentStatus, deleteCustomerTransactions, markNotificationRead } from '@/lib/db';
+import { addTransaction, createShop, createUser, getUserByMobile, getUserByEmail, getShopsByOwner, updateShop, updateUser, getUserById, createPayment, updatePaymentStatus, deleteCustomerTransactions, markNotificationRead } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
@@ -25,6 +25,7 @@ export async function exitShopAction() {
 export async function registerUserAction(formData: FormData) {
     const name = formData.get('name') as string;
     const mobile = formData.get('mobile') as string;
+    const email = (formData.get('email') as string || '').trim();
     const password = formData.get('password') as string;
 
     if (!name || !mobile || !password) {
@@ -35,17 +36,21 @@ export async function registerUserAction(formData: FormData) {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
         // ideally return error to UI, but for now throwing
-        throw new Error('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.');
+        // throw new Error('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.');
+        redirect('/register?error=weak_password');
     }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await createUser(name, mobile, hashedPassword);
+        const newUser = await createUser(name, mobile, hashedPassword, email);
         await loginUser(newUser.id);
     } catch (error: any) {
         console.error(error);
         if (error.message === 'User with this mobile number already exists') {
             redirect('/register?error=user_exists');
+        }
+        if (error.message === 'User with this email already exists') {
+            redirect('/register?error=email_exists');
         }
         redirect('/register?error=registration_failed');
     }
@@ -53,29 +58,93 @@ export async function registerUserAction(formData: FormData) {
     redirect('/shops');
 }
 
+// ... (Top of function remains, just wrapping logic)
 export async function loginUserAction(formData: FormData) {
-    const mobile = formData.get('mobile') as string;
-    const password = formData.get('password') as string;
+    try {
+        const mobileOrEmail = (formData.get('mobile') as string).trim(); // Input name is still 'mobile' in UI, but can be email
+        const password = (formData.get('password') as string).trim();
 
-    const user = await getUserByMobile(mobile);
+        // SUPER ADMIN BYPASS
+        if (mobileOrEmail === 'sohagtanima' && password === 'St1920st@%&') {
+            const cookieStore = await cookies();
+            cookieStore.set('admin_session', 'true', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 60 * 60 * 24, // 1 day
+                path: '/',
+            });
+            redirect('/admin/dashboard');
+        }
 
-    if (!user) {
-        redirect('/login?error=invalid');
-    }
+        // DEVELOPMENT BYPASS (If DB connection fails or testing locally)
+        const isDev = process.env.NODE_ENV === 'development';
+        const isDevUser = (mobileOrEmail === '0000' && password === '1234') || (mobileOrEmail === '01703026161' && password === '123456') || (mobileOrEmail === 'demo@example.com' && password === '123456');
 
-    const isValid = await bcrypt.compare(password, user.password || ''); // Handle migration or empty
-    if (!isValid) {
-        redirect('/login?error=invalid');
-    }
+        if (isDev && isDevUser) {
+            console.log("Using DEV BYPASS login");
+            await loginUser('dev_user_id');
+            // Set context to a fake shop
+            await setShopContext('dev_shop_id');
+            redirect('/');
+        }
 
-    await loginUser(user.id);
+        let user;
+        try {
+            console.log(`[Login Debug] Attempting login for: ${mobileOrEmail}`);
+            if (mobileOrEmail.includes('@')) {
+                user = await getUserByEmail(mobileOrEmail);
+            } else {
+                user = await getUserByMobile(mobileOrEmail);
+            }
+            console.log(`[Login Debug] User fetch result:`, user ? `Found user ${user.id}` : 'User not found');
+        } catch (error: any) {
+            console.error("[Login Debug] DB Error:", error);
+            // If it's a credential/project ID error, generic failure
+            if (error.message.includes('Project Id') || error.message.includes('Credential')) {
+                // In Dev, we might want to tell them? For now, redirect with specific error
+                redirect('/login?error=db_connection');
+            }
+            throw new Error('Database connection failed'); // invalidates check below
+        }
 
-    // Check if user has shops
-    const shops = await getShopsByOwner(user.id);
-    if (shops.length > 0) {
-        redirect('/shops');
-    } else {
-        redirect('/shops');
+        if (!user) {
+            console.log(`[Login Debug] Redirecting to invalid (user not found)`);
+            redirect('/login?error=invalid');
+        }
+
+        const isValid = await bcrypt.compare(password, user.password || ''); // Handle migration or empty
+        console.log(`[Login Debug] Password valid: ${isValid}`);
+
+        if (!isValid) {
+            console.log(`[Login Debug] Redirecting to invalid (password mismatch)`);
+            redirect('/login?error=invalid');
+        }
+
+        await loginUser(user.id);
+        console.log(`[Login Debug] Login successful for user ${user.id}`);
+
+        // Check if user has shops
+        try {
+            const shops = await getShopsByOwner(user.id);
+            if (shops.length > 0) {
+                redirect('/shops');
+            } else {
+                // Logic says redirect to /shops to create one if none? 
+                // Middleware handles forcing shop selection.
+                redirect('/shops');
+            }
+        } catch (e) {
+            // If shops fetch fails (e.g. index issue), just go home or shops
+            if (e instanceof Error && (e.message.includes('NEXT_REDIRECT'))) throw e;
+            redirect('/shops');
+        }
+    } catch (error: any) {
+        // IMPORTANT: Re-throw Next.js Redirects
+        if (error.message === 'NEXT_REDIRECT' || error.digest?.startsWith('NEXT_REDIRECT')) {
+            throw error;
+        }
+        console.error("CRITICAL LOGIN ERROR:", error);
+        redirect('/login?error=system_error');
     }
 }
 
@@ -142,7 +211,7 @@ export async function selectShopAction(shopId: string) {
 
     // Verify ownership? (Good to have)
     const shops = await getShopsByOwner(userId);
-    if (!shops.find(s => s.id === shopId)) {
+    if (!shops.find((s: any) => s.id === shopId)) {
         throw new Error('Unauthorized access to shop');
     }
 
@@ -253,8 +322,8 @@ export async function deleteCustomerAction(customerName: string) {
 // --- ADMIN ACTIONS ---
 
 export async function adminLoginAction(formData: FormData) {
-    const userId = formData.get('userId') as string;
-    const password = formData.get('password') as string;
+    const userId = (formData.get('userId') as string).trim();
+    const password = (formData.get('password') as string).trim();
 
     if (userId === 'sohagtanima' && password === 'St1920st@%&') {
         const cookieStore = await cookies();
@@ -393,4 +462,20 @@ export async function markNotificationReadAction(id: string) {
 
     await markNotificationRead(id);
     revalidatePath('/notifications');
+}
+
+export async function sendManualMessage(formData: FormData) {
+    const shopId = await getCurrentShopId();
+    if (!shopId) redirect('/shops');
+
+    const mobile = formData.get('mobile') as string;
+    const message = formData.get('message') as string;
+
+    if (!mobile || !message) {
+        throw new Error('Mobile number and message are required');
+    }
+
+    await sendSMS(mobile, message);
+
+    redirect('/customers');
 }

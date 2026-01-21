@@ -18,7 +18,7 @@ export default async function Home() {
     // Calculate Stats
     const customerBalances = new Map<string, number>();
 
-    transactions.forEach(t => {
+    transactions.forEach((t: any) => {
       const current = customerBalances.get(t.customerName) || 0;
       if (t.type === 'DUE') {
         customerBalances.set(t.customerName, current + t.amount);
@@ -33,10 +33,10 @@ export default async function Home() {
 
     const today = new Date().toISOString().split('T')[0];
     const todaysCollection = transactions
-      .filter(t => t.type === 'PAYMENT' && t.date === today)
-      .reduce((sum, t) => sum + t.amount, 0);
+      .filter((t: any) => t.type === 'PAYMENT' && t.date === today)
+      .reduce((sum: number, t: any) => sum + t.amount, 0);
 
-    const newCustomers = new Set(transactions.map(t => t.customerName)).size;
+    const newCustomers = new Set(transactions.map((t: any) => t.customerName)).size;
 
     return (
       <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
@@ -145,7 +145,7 @@ export default async function Home() {
                   <p className="text-xs mt-1">Add your first due or payment.</p>
                 </div>
               ) : (
-                transactions.slice().reverse().slice(0, 5).map((tx) => (
+                transactions.slice().reverse().slice(0, 5).map((tx: any) => (
                   <div key={tx.id} className="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-white ${tx.type === 'PAYMENT' ? 'bg-green-600' : 'bg-red-500'}`}>

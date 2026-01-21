@@ -13,12 +13,12 @@ export default async function DueList() {
     if (!shopId) redirect('/login');
 
     const allCustomers = await getCustomersWithDue(shopId);
-    const dueCustomers = allCustomers.filter(c => c.totalDue > 0);
-    const totalOutstanding = dueCustomers.reduce((sum, c) => sum + c.totalDue, 0);
+    const dueCustomers = allCustomers.filter((c: any) => c.totalDue > 0);
+    const totalOutstanding = dueCustomers.reduce((sum: number, c: any) => sum + c.totalDue, 0);
 
     // Prepare data for PDF
     const pdfHeaders = ['Customer', 'Mobile', 'Last Date', 'Due Amount'];
-    const pdfData = dueCustomers.map(c => [
+    const pdfData = dueCustomers.map((c: any) => [
         c.name,
         c.phone || '-',
         c.lastDate || '-',
@@ -84,7 +84,7 @@ export default async function DueList() {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
-                                        {dueCustomers.map((customer) => (
+                                        {dueCustomers.map((customer: any) => (
                                             <tr key={customer.name} className="hover:bg-gray-50 transition">
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-3">

@@ -1,0 +1,232 @@
+2025-12-16T14:06:35.443714Z ? ssrdokanbakikhata: (node:1) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 uncaughtException listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+2025-12-16T14:06:35.674537Z E ssrdokanbakikhata: 
+2025-12-16T14:06:35.705297Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:06:35.706658Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:08:31.620595Z E ssrdokanbakikhata: 
+2025-12-16T14:08:31.661987Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:08:31.663366Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:08:31.912216Z E ssrdokanbakikhata: 
+2025-12-16T14:08:31.938425Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:08:31.940477Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:48.588253Z E ssrdokanbakikhata: 
+2025-12-16T14:13:48.620719Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:48.621976Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:48.841789Z E ssrdokanbakikhata: 
+2025-12-16T14:13:48.864051Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:48.865299Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:51.381102Z E ssrdokanbakikhata: 
+2025-12-16T14:13:51.405909Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:51.407226Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:51.812026Z E ssrdokanbakikhata: 
+2025-12-16T14:13:51.839402Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:51.841019Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:52.078135Z E ssrdokanbakikhata: 
+2025-12-16T14:13:52.104282Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:52.105631Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:52.340550Z E ssrdokanbakikhata: 
+2025-12-16T14:13:52.364473Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:52.365412Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:52.760738Z E ssrdokanbakikhata: 
+2025-12-16T14:13:52.781521Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:52.782578Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:53.000497Z E ssrdokanbakikhata: 
+2025-12-16T14:13:53.024332Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T14:13:53.025655Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:550)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:553) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:05:48.561378968Z N ssrdokanbakikhata: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","authenticationInfo":{"principalEmail":"sohagkaziconsole@gmail.com","principalSubject":"user:sohagkaziconsole@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"callerIp":"37.111.199.187","callerSuppliedUserAgent":"FirebaseCLI/15.0.0,gzip(gfe),gzip(gfe)","requestAttributes":{"time":"2025-12-16T15:05:47.853848483Z","auth":{}},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","authorizationInfo":[{"resource":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","permission":"cloudfunctions.functions.update","granted":true,"resourceAttributes":{"service":"cloudfunctions.googleapis.com","name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","type":"cloudfunctions.googleapis.com/Function"},"permissionType":"ADMIN_WRITE"}],"resourceName":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","request":{"@type":"type.googleapis.com/google.cloud.functions.v2.UpdateFunctionRequest","update_mask":{"paths":["name","build_config.runtime","build_config.entry_point","build_config.source.storage_source.bucket","build_config.source.storage_source.object","build_config.environment_variables","service_config.environment_variables","service_config.ingress_settings","service_config.timeout_seconds","service_config.service_account_email","service_config.available_memory","service_config.min_instance_count","service_config.max_instance_count","service_config.max_instance_request_concurrency","service_config.available_cpu","service_config.vpc_connector","service_config.vpc_connector_egress_settings","labels"]},"function":{"labels":{"firebase-functions-hash":"12c580ce7b42ed3e818ebc8cfa3524bd20f94f43","firebase-functions-codebase":"firebase-frameworks-dokanbakikhata","deployment-tool":"cli-firebase"},"build_config":{"entry_point":"ssrdokanbakikhata","runtime":"nodejs20","source":{}},"name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","service_config":{"available_memory":"1024Mi","timeout_seconds":60,"min_instance_count":0,"max_instance_request_concurrency":80,"available_cpu":"1"}}},"response":{"@type":"type.googleapis.com/google.longrunning.Operation"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2025-12-16T15:08:40.886858Z I ssrdokanbakikhata: Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.
+2025-12-16T15:08:43.457292Z I ssrdokanbakikhata: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2025-12-16T15:08:46.156738738Z N ssrdokanbakikhata: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","status":{},"authenticationInfo":{"principalEmail":"sohagkaziconsole@gmail.com","principalSubject":"user:sohagkaziconsole@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"requestAttributes":{},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","resourceName":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","response":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","createTime":"2025-12-16T09:34:59.262048818Z","labels":{"firebase-functions-codebase":"firebase-frameworks-dokanbakikhata","firebase-functions-hash":"12c580ce7b42ed3e818ebc8cfa3524bd20f94f43","deployment-tool":"cli-firebase"},"url":"https://us-central1-dokanbakikhata.cloudfunctions.net/ssrdokanbakikhata","satisfiesPzi":true,"buildConfig":{"dockerRepository":"projects/dokanbakikhata/locations/us-central1/repositories/gcf-artifacts","entryPoint":"ssrdokanbakikhata","runtime":"nodejs20","serviceAccount":"projects/dokanbakikhata/serviceAccounts/49866951058-compute@developer.gserviceaccount.com","source":{},"automaticUpdatePolicy":{},"dockerRegistry":"ARTIFACT_REGISTRY"},"environment":"GEN_2","serviceConfig":{"revision":"ssrdokanbakikhata-00005-row","availableCpu":"1","allTrafficOnLatestRevision":true,"timeoutSeconds":60,"uri":"https://ssrdokanbakikhata-3qcjc34oaa-uc.a.run.app","maxInstanceRequestConcurrency":80,"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"49866951058-compute@developer.gserviceaccount.com","maxInstanceCount":3,"availableMemory":"1024Mi"},"updateTime":"2025-12-16T15:05:48.544218602Z","name":"projects/dokanbakikhata/locations/us-central1/functions/ssrdokanbakikhata","state":"ACTIVE"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2025-12-16T15:09:51.229170Z E ssrdokanbakikhata: 
+2025-12-16T15:09:54.105540Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:09:54.366006Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:09:54.624915Z E ssrdokanbakikhata: 
+2025-12-16T15:09:54.665929Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:09:54.667817Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:35.738052Z E ssrdokanbakikhata: 
+2025-12-16T15:13:35.807441Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:35.810053Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:36.038136Z E ssrdokanbakikhata: 
+2025-12-16T15:13:36.100427Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
+2025-12-16T15:13:36.104909Z ? ssrdokanbakikhata:  ⨯ Error: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:580)
+    at <unknown> (.next/server/chunks/ssr/[root-of-the-server]__1f918d5a._.js:1:824) {
+  errorInfo: [Object],
+  codePrefix: 'app'
+}
+
