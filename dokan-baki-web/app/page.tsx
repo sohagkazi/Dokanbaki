@@ -1,17 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getTransactions, getShopById } from "@/lib/db";
-import { getCurrentShopId } from "@/lib/auth";
+import { getCurrentShopId, getCurrentUserId } from "@/lib/auth";
 import { Plus, Minus, FileText, ArrowRight, TrendingUp, Users, CheckCircle, Shield, BookOpen, Bell, BarChart, ChevronRight, Play, Star, Crown } from "lucide-react";
 import DashboardHeader from "@/components/dashboard-header";
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
+  const userId = await getCurrentUserId();
   const shopId = await getCurrentShopId();
 
-  // DASHBOARD VIEW (Logged In)
+  // DASHBOARD VIEW (Logged In + Shop Selected)
   if (shopId) {
+    // ... (rest of dashboard logic)
+    // COPYING PREVIOUS DASHBOARD LOGIC START
     const shop = await getShopById(shopId);
     const transactions = await getTransactions(shopId);
 
@@ -160,7 +163,7 @@ export default async function Home() {
                       <p className={`font-bold text-base ${tx.type === 'PAYMENT' ? 'text-green-600' : 'text-red-500'}`}>
                         {tx.type === 'PAYMENT' ? '+' : '-'} ৳ {tx.amount.toLocaleString()}
                       </p>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+                      <p className="text--[10px] text-gray-400 font-bold uppercase tracking-wider">
                         {tx.type === 'PAYMENT' ? 'RECEIVED' : 'GIVEN'}
                       </p>
                     </div>
@@ -175,7 +178,7 @@ export default async function Home() {
     );
   }
 
-  // LANDING PAGE (Guest)
+  // LANDING PAGE (Guest or Logged In without Shop)
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
       {/* Navbar */}
@@ -184,11 +187,18 @@ export default async function Home() {
           <span>Dokan Baki</span>
         </Link>
         <div className="flex items-center space-x-6">
-
-          <Link href="/login" className="text-gray-600 hover:text-blue-600 font-medium">Login</Link>
-          <Link href="/register" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-full font-bold transition shadow-lg shadow-blue-500/30">
-            Get Started
-          </Link>
+          {userId ? (
+            <Link href="/shops" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-full font-bold transition shadow-lg shadow-blue-500/30">
+              Access Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link href="/login" className="text-gray-600 hover:text-blue-600 font-medium">Login</Link>
+              <Link href="/register" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-full font-bold transition shadow-lg shadow-blue-500/30">
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 

@@ -1,4 +1,4 @@
-import { Bell, Search, LogOut, Crown } from 'lucide-react';
+import { Bell, Search, LogOut, Crown, User } from 'lucide-react';
 import Link from 'next/link';
 import { exitShopAction } from '@/app/actions';
 
@@ -32,6 +32,10 @@ export default function DashboardHeader({ shopName, shopImage }: DashboardHeader
                         <Bell className="w-5 h-5 text-white" />
                         {/* We could fetch count here, but for simplicity let's just show the link */}
                         {/* Advanced: Component that fetches count */}
+                    </Link>
+
+                    <Link href="/profile" className="bg-white/20 p-2 rounded-full hover:bg-white/30 transition backdrop-blur-md" title="Profile">
+                        <User className="w-5 h-5 text-white" />
                     </Link>
 
                     <Link href="/search" className="bg-white/20 p-2 rounded-full hover:bg-white/30 transition backdrop-blur-md">

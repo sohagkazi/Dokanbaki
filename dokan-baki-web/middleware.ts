@@ -32,8 +32,9 @@ export function middleware(request: NextRequest) {
             return NextResponse.next();
         }
         if (!shopId) {
-            // User but no shop selected: Select Shop
-            return NextResponse.redirect(new URL('/shops', request.url));
+            // User but no shop selected: Allow them to see Landing Page
+            // but app/page.tsx should probably show a "Select Shop" button in nav
+            return NextResponse.next();
         }
         // User & Shop Selected: Show Dashboard
         return NextResponse.next();
