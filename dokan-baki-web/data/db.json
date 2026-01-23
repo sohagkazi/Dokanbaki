@@ -20,7 +20,22 @@
       "subscriptionPlan": "FREE",
       "smsBalance": 0,
       "id": "juo96snsmkqm59it",
-      "createdAt": "2026-01-23T08:22:54.582Z"
+      "createdAt": "2026-01-23T08:22:54.582Z",
+      "theme": {
+        "primaryColor": "#2563eb",
+        "secondaryColor": "#4f46e5",
+        "accentColor": "#f97316"
+      }
+    },
+    {
+      "name": "Tonima",
+      "mobile": "01767562547",
+      "password": "$2b$10$lhNh1VVE4TrqAgT.xJxucus6kJCgEEfjlGIe5yILvpI/k23F2Gf.y",
+      "email": "",
+      "subscriptionPlan": "FREE",
+      "smsBalance": 0,
+      "id": "y37frvvsmkqmu33g",
+      "createdAt": "2026-01-23T08:42:12.652Z"
     }
   ],
   "shops": [
@@ -47,6 +62,13 @@
       "mobile": "01777370180",
       "id": "c8nt3tm6mkqmkogi",
       "createdAt": "2026-01-23T08:34:53.778Z"
+    },
+    {
+      "ownerId": "y37frvvsmkqmu33g",
+      "name": "Vai Vai Shop",
+      "mobile": "01767562547",
+      "id": "9ad6n25wmkqmuk9f",
+      "createdAt": "2026-01-23T08:42:34.900Z"
     }
   ],
   "transactions": [
@@ -217,6 +239,52 @@
       "type": "DUE",
       "id": "szu90mfsmkqmnqa9",
       "createdAt": "2026-01-23T08:37:16.113Z"
+    },
+    {
+      "shopId": "9ad6n25wmkqmuk9f",
+      "customerName": "Lorange",
+      "mobileNumber": "01317319858",
+      "amount": 1000,
+      "date": "2026-01-23",
+      "dueDate": "2026-03-30",
+      "productName": "Rice",
+      "type": "DUE",
+      "id": "9iwdktgnmkqmvija",
+      "createdAt": "2026-01-23T08:43:19.318Z"
+    },
+    {
+      "shopId": "9ad6n25wmkqmuk9f",
+      "customerName": "Sojon",
+      "mobileNumber": "01603014585",
+      "amount": 300,
+      "date": "2026-01-23",
+      "dueDate": "2026-01-30",
+      "productName": "Coffee",
+      "type": "DUE",
+      "id": "p7xlg6vtmkqmwetb",
+      "createdAt": "2026-01-23T08:44:01.151Z"
+    },
+    {
+      "shopId": "9ad6n25wmkqmuk9f",
+      "customerName": "SOHAG KAZI",
+      "mobileNumber": "01703026161",
+      "amount": 500,
+      "date": "2026-01-23",
+      "dueDate": "2026-01-30",
+      "productName": "Coffee",
+      "type": "DUE",
+      "id": "hxmnuhrdmkqmx9mn",
+      "createdAt": "2026-01-23T08:44:41.087Z"
+    },
+    {
+      "shopId": "9ad6n25wmkqmuk9f",
+      "customerName": "SOHAG KAZI",
+      "mobileNumber": "01703026161",
+      "amount": 500,
+      "date": "2026-01-23",
+      "type": "PAYMENT",
+      "id": "phzmwu80mkqmxlcn",
+      "createdAt": "2026-01-23T08:44:56.279Z"
     }
   ],
   "notifications": [],

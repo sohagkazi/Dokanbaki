@@ -141,3 +141,54 @@ export async function updatePaymentStatus(id: string, status: 'APPROVED' | 'REJE
 export async function markNotificationRead(id: string): Promise<void> {
     JsonDB.update('notifications', id, { isRead: true });
 }
+
+// --- ADMIN FUNCTIONS ---
+
+export async function getAllUsersWithStats(): Promise<any[]> {
+    const users = JsonDB.get('users');
+    const shops = JsonDB.get('shops');
+    const transactions = JsonDB.get('transactions');
+
+    return users.map(user => {
+        const userShops = shops.filter(s => s.ownerId === user.id);
+
+        // Calculate stats per shop
+        const shopDetails = userShops.map(shop => {
+            const shopTx = transactions.filter(t => t.shopId === shop.id);
+            const uniqueCustomers = new Set(shopTx.map(t => t.customerName)).size;
+            return `${shop.name} (${uniqueCustomers})`;
+        });
+
+        // Calculate total stats for user
+        const allUserTx = transactions.filter(t => userShops.some(s => s.id === t.shopId));
+        const totalCustomers = new Set(allUserTx.map(t => t.customerName)).size;
+
+        // Calculate Total Due (DUE - PAYMENT)
+        let totalDue = 0;
+        allUserTx.forEach(t => {
+            if (t.type === 'DUE') totalDue += t.amount;
+            else totalDue -= t.amount;
+        });
+
+        return {
+            ...user,
+            shopCount: userShops.length,
+            shopNames: shopDetails, // Array of strings: ["Shop A (5)", "Shop B (2)"]
+            totalCustomers: totalCustomers,
+            totalDue: totalDue,
+            lastLogin: 'N/A'
+        };
+    });
+}
+
+export async function getAllPayments(): Promise<Payment[]> {
+    return JsonDB.get('payments');
+}
+
+export async function approvePayment(id: string): Promise<void> {
+    await updatePaymentStatus(id, 'APPROVED');
+}
+
+export async function rejectPayment(id: string): Promise<void> {
+    await updatePaymentStatus(id, 'REJECTED');
+}
