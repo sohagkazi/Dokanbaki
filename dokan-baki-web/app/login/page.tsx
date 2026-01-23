@@ -26,8 +26,9 @@ export default async function Login(props: { searchParams: Promise<{ error?: str
                 </div>
             </div>
 
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10 border border-gray-100">
+            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+                <div className="bg-white py-10 px-6 shadow-2xl shadow-blue-500/10 rounded-3xl sm:px-12 border border-gray-100 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full opacity-50 -mr-10 -mt-10 pointer-events-none"></div>
 
                     {error && (
                         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
@@ -54,7 +55,7 @@ export default async function Login(props: { searchParams: Promise<{ error?: str
                                     name="mobile"
                                     type="text"
                                     required
-                                    className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
+                                    className="block w-full pl-10 sm:text-sm border-gray-200 rounded-xl py-3.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent border bg-gray-50 focus:bg-white transition-all shadow-sm"
                                     placeholder="017... or email@example.com"
                                 />
                             </div>
@@ -107,7 +108,7 @@ export default async function Login(props: { searchParams: Promise<{ error?: str
                         <div className="mt-6">
                             <Link
                                 href="/register"
-                                className="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+                                className="w-full flex justify-center py-3.5 px-4 border border-gray-200 rounded-xl shadow-sm bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all"
                             >
                                 Create new user account
                             </Link>

@@ -28,8 +28,9 @@ export default async function Register({ searchParams }: { searchParams: Promise
                 </div>
             </div>
 
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10 border border-gray-100">
+            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+                <div className="bg-white py-10 px-6 shadow-2xl shadow-blue-500/10 rounded-3xl sm:px-12 border border-gray-100 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full opacity-50 -mr-10 -mt-10 pointer-events-none"></div>
 
                     {error === 'user_exists' && (
                         <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md flex items-center gap-2 text-sm">
@@ -69,7 +70,7 @@ export default async function Register({ searchParams }: { searchParams: Promise
                                     name="name"
                                     type="text"
                                     required
-                                    className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
+                                    className="block w-full pl-10 sm:text-sm border-gray-200 rounded-xl py-3.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent border bg-gray-50 focus:bg-white transition-all shadow-sm"
                                     placeholder="John Doe"
                                 />
                             </div>
@@ -86,7 +87,7 @@ export default async function Register({ searchParams }: { searchParams: Promise
                                 <input
                                     name="email"
                                     type="email"
-                                    className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
+                                    className="block w-full pl-10 sm:text-sm border-gray-200 rounded-xl py-3.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent border bg-gray-50 focus:bg-white transition-all shadow-sm"
                                     placeholder="you@example.com"
                                 />
                             </div>
@@ -103,7 +104,7 @@ export default async function Register({ searchParams }: { searchParams: Promise
                                     name="mobile"
                                     type="tel"
                                     required
-                                    className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
+                                    className="block w-full pl-10 sm:text-sm border-gray-200 rounded-xl py-3.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent border bg-gray-50 focus:bg-white transition-all shadow-sm"
                                     placeholder="017..."
                                 />
                             </div>
@@ -120,7 +121,7 @@ export default async function Register({ searchParams }: { searchParams: Promise
                                     name="password"
                                     type="password"
                                     required
-                                    className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3 focus:ring-blue-500 focus:border-blue-500 border"
+                                    className="block w-full pl-10 sm:text-sm border-gray-200 rounded-xl py-3.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent border bg-gray-50 focus:bg-white transition-all shadow-sm"
                                     placeholder="Strong@123"
                                 />
                             </div>
@@ -130,7 +131,7 @@ export default async function Register({ searchParams }: { searchParams: Promise
                         <div>
                             <button
                                 type="submit"
-                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
+                                className="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-500/30 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 hover:shadow-blue-500/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:-translate-y-0.5"
                             >
                                 Create Account <ArrowRight className="ml-2 w-4 h-4" />
                             </button>
@@ -150,7 +151,7 @@ export default async function Register({ searchParams }: { searchParams: Promise
                         <div className="mt-6">
                             <Link
                                 href="/login"
-                                className="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+                                className="w-full flex justify-center py-3.5 px-4 border border-gray-200 rounded-xl shadow-sm bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all"
                             >
                                 Log in
                             </Link>

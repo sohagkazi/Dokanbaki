@@ -10,6 +10,13 @@ export interface User {
     subscriptionPlan: 'FREE' | 'PRO' | 'PLATINUM' | 'TITANIUM';
     subscriptionExpiry?: string;
     smsBalance: number;
+    theme?: ThemeConfig;
+}
+
+export interface ThemeConfig {
+    primaryColor: string;
+    secondaryColor: string;
+    accentColor: string;
 }
 
 export interface Shop {

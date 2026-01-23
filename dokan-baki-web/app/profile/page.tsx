@@ -2,8 +2,9 @@
 import Link from "next/link";
 import {
     Edit2, MapPin, User, LogOut, ChevronRight, Store,
-    Phone, Share2, HelpCircle, ShieldCheck, ArrowLeft
+    Phone, Share2, HelpCircle, ShieldCheck
 } from "lucide-react";
+import BackButton from "@/components/back-button";
 import { getCurrentShopId, getCurrentUserId } from "@/lib/auth";
 import { getShopById, getUserById } from "@/lib/db";
 import { redirect } from "next/navigation";
@@ -16,12 +17,12 @@ export default async function Profile() {
     const userId = await getCurrentUserId();
 
     if (!userId) redirect('/login');
-    if (!shopId) redirect('/shops');
+    // if (!shopId) redirect('/shops'); // Allow viewing profile without shop
 
-    const shop = await getShopById(shopId);
+    const shop = shopId ? await getShopById(shopId) : null;
     const user = await getUserById(userId);
 
-    if (!shop || !user) redirect('/login');
+    if (!user) redirect('/login');
 
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
@@ -29,9 +30,7 @@ export default async function Profile() {
             <header className="bg-white shadow-sm sticky top-0 z-10">
                 <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Link href="/" className="p-2 -ml-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition">
-                            <ArrowLeft className="w-5 h-5" />
-                        </Link>
+                        <BackButton />
                         <h1 className="text-xl font-bold text-gray-800">Profile & Check</h1>
                     </div>
                     <div className="w-6" /> {/* Spacer */}
@@ -61,34 +60,47 @@ export default async function Profile() {
                 </div>
 
                 {/* Shop Profile Card */}
-                <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 shadow-lg text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10">
-                        <Store className="w-32 h-32" />
-                    </div>
-
-                    <div className="relative z-10 flex justify-between items-start">
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/30 mb-4 overflow-hidden">
-                            {shop.image ? (
-                                <img src={shop.image} alt={shop.name} className="w-full h-full object-cover" />
-                            ) : (
-                                <span className="text-2xl font-bold">{shop.name.charAt(0)}</span>
-                            )}
+                {shop ? (
+                    <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 shadow-lg text-white relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <Store className="w-32 h-32" />
                         </div>
-                        <Link href="/profile/edit" className="bg-white/20 hover:bg-white/30 p-2 rounded-lg backdrop-blur-sm transition">
-                            <Edit2 className="w-4 h-4 text-white" />
+
+                        <div className="relative z-10 flex justify-between items-start">
+                            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/30 mb-4 overflow-hidden">
+                                {shop.image ? (
+                                    <img src={shop.image} alt={shop.name} className="w-full h-full object-cover" />
+                                ) : (
+                                    <span className="text-2xl font-bold">{shop.name.charAt(0)}</span>
+                                )}
+                            </div>
+                            <Link href="/profile/edit" className="bg-white/20 hover:bg-white/30 p-2 rounded-lg backdrop-blur-sm transition">
+                                <Edit2 className="w-4 h-4 text-white" />
+                            </Link>
+                        </div>
+
+                        <h2 className="text-2xl font-bold relative z-10">{shop.name}</h2>
+                        <div className="flex items-center gap-2 mt-2 text-blue-100 relative z-10 text-sm">
+                            <MapPin className="w-4 h-4" />
+                            <span>{shop.address || 'Address not set'}</span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-1 text-blue-100 relative z-10 text-sm">
+                            <Phone className="w-4 h-4" />
+                            <span>{shop.mobile || 'No contact info'}</span>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="bg-gray-100 rounded-2xl p-6 text-center">
+                        <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                            <Store className="w-8 h-8" />
+                        </div>
+                        <h3 className="font-bold text-gray-900 mb-1">No Shop Selected</h3>
+                        <p className="text-sm text-gray-500 mb-4">You haven't selected a shop yet.</p>
+                        <Link href="/shops" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            Select or Create Shop
                         </Link>
                     </div>
-
-                    <h2 className="text-2xl font-bold relative z-10">{shop.name}</h2>
-                    <div className="flex items-center gap-2 mt-2 text-blue-100 relative z-10 text-sm">
-                        <MapPin className="w-4 h-4" />
-                        <span>{shop.address || 'Address not set'}</span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-1 text-blue-100 relative z-10 text-sm">
-                        <Phone className="w-4 h-4" />
-                        <span>{shop.mobile || 'No contact info'}</span>
-                    </div>
-                </div>
+                )}
 
                 {/* Settings Menu */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden divide-y divide-gray-50">

@@ -2,10 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTransactions, getShopById } from "@/lib/db";
 import { getCurrentShopId, getCurrentUserId } from "@/lib/auth";
-import { Plus, Minus, FileText, ArrowRight, TrendingUp, Users, CheckCircle, Shield, BookOpen, Bell, BarChart, ChevronRight, Play, Star, Crown } from "lucide-react";
+import { Plus, Minus, FileText, ArrowRight, TrendingUp, Users, User, BrainCircuit, Star, Play, CheckCircle, Shield, BookOpen, Bell, BarChart, ChevronRight, Crown } from "lucide-react";
 import DashboardHeader from "@/components/dashboard-header";
+import AIInsights from "@/components/ai-insights";
 
 export const dynamic = 'force-dynamic';
+
 
 export default async function Home() {
   const userId = await getCurrentUserId();
@@ -41,6 +43,9 @@ export default async function Home() {
 
     const newCustomers = new Set(transactions.map((t: any) => t.customerName)).size;
 
+    // Prepare data for AI Insights
+    const customersForAI = Array.from(customerBalances.entries()).map(([name, totalDue]) => ({ name, totalDue }));
+
     return (
       <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
 
@@ -48,6 +53,9 @@ export default async function Home() {
         <DashboardHeader shopName={shop?.name || 'My Shop'} shopImage={shop?.image} />
 
         <main className="px-4 -mt-8 relative z-10">
+
+          {/* AI Insights Section */}
+          <AIInsights transactions={transactions} customers={customersForAI} />
 
           {/* Main Stats Card */}
           <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 mb-8 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden">
@@ -188,9 +196,14 @@ export default async function Home() {
         </Link>
         <div className="flex items-center space-x-6">
           {userId ? (
-            <Link href="/shops" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-full font-bold transition shadow-lg shadow-blue-500/30">
-              Access Dashboard
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/profile" className="text-gray-600 hover:text-blue-600 font-medium flex items-center gap-1">
+                <User className="w-5 h-5" /> Profile
+              </Link>
+              <Link href="/shops" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-full font-bold transition shadow-lg shadow-blue-500/30">
+                Access Dashboard
+              </Link>
+            </div>
           ) : (
             <>
               <Link href="/login" className="text-gray-600 hover:text-blue-600 font-medium">Login</Link>

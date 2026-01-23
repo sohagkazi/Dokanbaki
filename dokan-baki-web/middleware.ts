@@ -46,7 +46,7 @@ export function middleware(request: NextRequest) {
     }
 
     // If logged in but no shop context active, force selection (except for /shops and /user-profile)
-    if (!shopId && path !== '/shops' && !path.startsWith('/user-profile') && !path.startsWith('/subscription')) {
+    if (!shopId && path !== '/shops' && path !== '/profile' && !path.startsWith('/user-profile') && !path.startsWith('/subscription')) {
         return NextResponse.redirect(new URL('/shops', request.url));
     }
 

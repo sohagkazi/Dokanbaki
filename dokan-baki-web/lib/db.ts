@@ -1,136 +1,93 @@
 import { JsonDB } from './json-db';
 import { User, Shop, Transaction, Notification, Payment, OTP, CustomerDue } from './types';
 
+// Export types for consumption
 export type { User, Shop, Transaction, Notification, Payment, OTP, CustomerDue };
 
 // --- USER FUNCTIONS ---
 
-export async function createUser(name: string, mobile: string, password: string, email?: string) {
-    // Check mobile uniqueness
+export async function createUser(name: string, mobile: string, password: string, email?: string): Promise<User> {
     const existingMobile = JsonDB.findOne('users', { mobile });
-    if (existingMobile) {
-        throw new Error('User with this mobile number already exists');
-    }
+    if (existingMobile) throw new Error('User with this mobile number already exists');
 
-    // Check email uniqueness if provided
     if (email) {
         const existingEmail = JsonDB.findOne('users', { email });
-        if (existingEmail) {
-            throw new Error('User with this email already exists');
-        }
+        if (existingEmail) throw new Error('User with this email already exists');
     }
 
-    const newUser = {
+    console.log('[DB] Create User:', { name, mobile });
+    return JsonDB.insert('users', {
         name,
         mobile,
         password,
         email: email || '',
         subscriptionPlan: 'FREE',
         smsBalance: 0
-    };
-
-    const created = JsonDB.insert('users', newUser);
-    return created;
+    });
 }
 
-export async function getUserByEmail(email: string) {
+export async function getUserByEmail(email: string): Promise<User | undefined> {
     return JsonDB.findOne('users', { email });
 }
 
-export async function updateUser(id: string, data: Partial<User>) {
-    return JsonDB.update('users', id, data);
-}
-
-export async function getUserByMobile(mobile: string) {
+export async function getUserByMobile(mobile: string): Promise<User | undefined> {
     return JsonDB.findOne('users', { mobile });
 }
 
-export async function getUserById(id: string) {
+export async function getUserById(id: string): Promise<User | undefined> {
     return JsonDB.findOne('users', { id });
 }
 
-export async function getAllUsersWithStats() {
-    const users = JsonDB.get('users');
-
-    return users.map((user: User) => {
-        const shops = JsonDB.find('shops', { ownerId: user.id });
-
-        let allTransactions: Transaction[] = [];
-        for (const shop of shops) {
-            const ts = JsonDB.find('transactions', { shopId: shop.id });
-            allTransactions.push(...ts);
-        }
-
-        const uniqueCustomers = new Set(allTransactions.map(t => t.customerName)).size;
-
-        const totalDue = allTransactions.reduce((acc, t) => {
-            if (t.type === 'DUE') return acc + t.amount;
-            if (t.type === 'PAYMENT') return acc - t.amount;
-            return acc;
-        }, 0);
-
-        return {
-            ...user,
-            shopCount: shops.length,
-            shopNames: shops.map((s: any) => s.name),
-            totalCustomers: uniqueCustomers,
-            totalDue: totalDue
-        };
-    });
+export async function updateUser(id: string, data: Partial<User>): Promise<User | null> {
+    return JsonDB.update('users', id, data);
 }
 
 // --- SHOP FUNCTIONS ---
 
-export async function createShop(ownerId: string, name: string, mobile: string) {
-    const newShop = {
+export async function createShop(ownerId: string, name: string, mobile: string): Promise<Shop> {
+    console.log('[DB] Creating Shop:', { ownerId, name });
+    return JsonDB.insert('shops', {
         ownerId,
         name,
-        mobile
-    };
-    return JsonDB.insert('shops', newShop);
+        mobile: mobile || ''
+    });
 }
 
-export async function updateShop(id: string, data: Partial<Shop>) {
-    return JsonDB.update('shops', id, data);
+export async function getShopsByOwner(ownerId: string): Promise<Shop[]> {
+    const shops = JsonDB.find('shops', { ownerId });
+    console.log(`[DB] Fetched ${shops.length} shops for owner ${ownerId}`);
+    return shops;
 }
 
-export async function getShopById(id: string) {
+export async function getShopById(id: string): Promise<Shop | undefined> {
     return JsonDB.findOne('shops', { id });
 }
 
-export async function getShopsByOwner(ownerId: string) {
-    return JsonDB.find('shops', { ownerId });
-}
-
-export async function getShopByMobile(mobile: string) {
-    return JsonDB.findOne('shops', { mobile });
+export async function updateShop(id: string, data: Partial<Shop>): Promise<Shop | null> {
+    return JsonDB.update('shops', id, data);
 }
 
 // --- TRANSACTION FUNCTIONS ---
 
-export async function addTransaction(transaction: Omit<Transaction, 'id' | 'createdAt'>) {
+export async function addTransaction(transaction: Omit<Transaction, 'id' | 'createdAt'>): Promise<Transaction> {
+    console.log('[DB] Adding Transaction:', transaction);
     return JsonDB.insert('transactions', transaction);
 }
 
-export async function getTransactions(shopId: string) {
+export async function getTransactions(shopId: string): Promise<Transaction[]> {
     return JsonDB.find('transactions', { shopId });
 }
 
-export async function deleteCustomerTransactions(shopId: string, customerName: string) {
-    // Requires delete logic in JsonDB
+export async function deleteCustomerTransactions(shopId: string, customerName: string): Promise<void> {
+    console.log('[DB] Deleting transactions for:', { shopId, customerName });
     JsonDB.delete('transactions', { shopId, customerName });
-}
-
-export async function getAllDueTransactions() {
-    const transactions = JsonDB.get('transactions');
-    return transactions.filter((t: Transaction) => t.type === 'DUE' && t.dueDate);
 }
 
 export async function getCustomersWithDue(shopId: string): Promise<CustomerDue[]> {
     const transactions = await getTransactions(shopId);
     const customerMap = new Map<string, CustomerDue>();
 
-    transactions.forEach((t: Transaction) => {
+    transactions.forEach(t => {
         if (!customerMap.has(t.customerName)) {
             customerMap.set(t.customerName, {
                 name: t.customerName,
@@ -145,23 +102,19 @@ export async function getCustomersWithDue(shopId: string): Promise<CustomerDue[]
         } else {
             customer.totalDue -= t.amount;
         }
-
         if (t.mobileNumber) customer.phone = t.mobileNumber;
-
-        if (t.date > (customer.lastDate || '')) {
-            customer.lastDate = t.date;
-        }
+        if (t.date > (customer.lastDate || '')) customer.lastDate = t.date;
     });
 
-    return Array.from(customerMap.values()).sort((a, b) => b.totalDue - a.totalDue);
+    return Array.from(customerMap.values())
+        .filter(c => Math.abs(c.totalDue) > 0) // Optional: Hide zero balances?
+        .sort((a, b) => b.totalDue - a.totalDue);
 }
 
-// --- OTP FUNCTIONS ---
+// --- OTP & NOTIFICATIONS ---
 
-export async function saveOtp(mobile: string, code: string) {
-    // Remove old for this mobile
+export async function saveOtp(mobile: string, code: string): Promise<void> {
     JsonDB.delete('otps', { mobile });
-
     JsonDB.insert('otps', {
         mobile,
         code,
@@ -169,46 +122,22 @@ export async function saveOtp(mobile: string, code: string) {
     });
 }
 
-export async function getOtp(mobile: string) {
+export async function getOtp(mobile: string): Promise<OTP | undefined> {
     return JsonDB.findOne('otps', { mobile });
 }
 
-export async function deleteOtp(mobile: string) {
+export async function deleteOtp(mobile: string): Promise<void> {
     JsonDB.delete('otps', { mobile });
 }
 
-// --- PAYMENT & NOTIFICATION STUBS ---
-
-export async function createPayment(payment: any) {
+export async function createPayment(payment: any): Promise<Payment> {
     return JsonDB.insert('payments', { ...payment, status: 'PENDING' });
 }
 
-export async function getPaymentsByUser(userId: string) {
-    return JsonDB.find('payments', { userId });
-}
-
-export async function getAllPayments() {
-    return JsonDB.get('payments');
-}
-
-export async function updatePaymentStatus(id: string, status: string) {
+export async function updatePaymentStatus(id: string, status: 'APPROVED' | 'REJECTED'): Promise<Payment | null> {
     return JsonDB.update('payments', id, { status });
 }
 
-export async function createNotification(notification: any) {
-    return JsonDB.insert('notifications', notification);
-}
-
-export async function getShopNotifications(shopId: string) {
-    const notifs = JsonDB.find('notifications', { shopId });
-    return notifs.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
-}
-
-export async function markNotificationRead(id: string) {
+export async function markNotificationRead(id: string): Promise<void> {
     JsonDB.update('notifications', id, { isRead: true });
-}
-
-export async function getUnreadNotificationCount(shopId: string) {
-    const notifs = JsonDB.find('notifications', { shopId, isRead: false });
-    return notifs.length;
 }

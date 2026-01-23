@@ -59,9 +59,11 @@ export async function registerUserAction(formData: FormData) {
 }
 
 // ... (Top of function remains, just wrapping logic)
+// ... (imports remain the same)
+
 export async function loginUserAction(formData: FormData) {
     try {
-        const mobileOrEmail = (formData.get('mobile') as string).trim(); // Input name is still 'mobile' in UI, but can be email
+        const mobileOrEmail = (formData.get('mobile') as string).trim();
         const password = (formData.get('password') as string).trim();
 
         // SUPER ADMIN BYPASS
@@ -78,14 +80,37 @@ export async function loginUserAction(formData: FormData) {
 
         // DEVELOPMENT BYPASS (If DB connection fails or testing locally)
         const isDev = process.env.NODE_ENV === 'development';
-        const isDevUser = (mobileOrEmail === '0000' && password === '1234') || (mobileOrEmail === '01703026161' && password === '123456') || (mobileOrEmail === 'demo@example.com' && password === '123456');
+        const isDevUser = (mobileOrEmail === '0000' && password === '1234');
 
         if (isDev && isDevUser) {
             console.log("Using DEV BYPASS login");
+
+            // Ensure Dev User Exists in DB so relations work
+            let devUser = await getUserById('dev_user_id');
+            if (!devUser) {
+                console.log("Creating Dev User Stub...");
+                // Directly insert to avoid uniqueness check conflicts if partial data exists
+                const { JsonDB } = await import('@/lib/json-db');
+                devUser = JsonDB.insert('users', {
+                    id: 'dev_user_id',
+                    name: 'Dev User',
+                    mobile: '0000',
+                    password: '1234', // plaintext for dev
+                    subscriptionPlan: 'TITANIUM',
+                    smsBalance: 999
+                });
+            }
+
             await loginUser('dev_user_id');
-            // Set context to a fake shop
-            await setShopContext('dev_shop_id');
-            redirect('/');
+
+            // Check for shops
+            const shops = await getShopsByOwner('dev_user_id');
+            if (shops.length > 0) {
+                await setShopContext(shops[0].id);
+                redirect('/');
+            } else {
+                redirect('/shops');
+            }
         }
 
         let user;
@@ -99,47 +124,51 @@ export async function loginUserAction(formData: FormData) {
             console.log(`[Login Debug] User fetch result:`, user ? `Found user ${user.id}` : 'User not found');
         } catch (error: any) {
             console.error("[Login Debug] DB Error:", error);
-            // If it's a credential/project ID error, generic failure
-            if (error.message.includes('Project Id') || error.message.includes('Credential')) {
-                // In Dev, we might want to tell them? For now, redirect with specific error
-                redirect('/login?error=db_connection');
-            }
-            throw new Error('Database connection failed'); // invalidates check below
+            redirect('/login?error=db_connection');
         }
 
         if (!user) {
-            console.log(`[Login Debug] Redirecting to invalid (user not found)`);
             redirect('/login?error=invalid');
         }
 
-        const isValid = await bcrypt.compare(password, user.password || ''); // Handle migration or empty
-        console.log(`[Login Debug] Password valid: ${isValid}`);
-
+        const isValid = await bcrypt.compare(password, user.password || '');
         if (!isValid) {
-            console.log(`[Login Debug] Redirecting to invalid (password mismatch)`);
             redirect('/login?error=invalid');
+        }
+
+        // AI DYNAMIC THEMING
+        if (!user.theme) {
+            try {
+                // We don't have shop info here easily unless we fetch shops first, 
+                // or just use user name/generic
+                const shops = await getShopsByOwner(user.id);
+                const shopName = shops.length > 0 ? shops[0].name : user.name + "'s Shop";
+
+                // Dynamic import to avoid circular dep if needed, or just import
+                const { generateUserTheme } = await import('@/lib/ai');
+                const theme = await generateUserTheme(shopName);
+
+                await updateUser(user.id, { theme });
+                console.log(`[AI Theme] Generated and saved for user ${user.id}`);
+            } catch (e) {
+                console.error("[AI Theme] Error generating theme:", e);
+            }
         }
 
         await loginUser(user.id);
         console.log(`[Login Debug] Login successful for user ${user.id}`);
 
-        // Check if user has shops
-        try {
-            const shops = await getShopsByOwner(user.id);
-            if (shops.length > 0) {
-                redirect('/shops');
-            } else {
-                // Logic says redirect to /shops to create one if none? 
-                // Middleware handles forcing shop selection.
-                redirect('/shops');
-            }
-        } catch (e) {
-            // If shops fetch fails (e.g. index issue), just go home or shops
-            if (e instanceof Error && (e.message.includes('NEXT_REDIRECT'))) throw e;
+        const shops = await getShopsByOwner(user.id);
+        if (shops.length > 0) {
+            // Auto-select first shop if available? Or force selection?
+            // Let's redirect to shops listing to be safe, or select first one.
+            // Safe bet: Redirect to /shops so they know they have shops.
+            redirect('/shops');
+        } else {
             redirect('/shops');
         }
+
     } catch (error: any) {
-        // IMPORTANT: Re-throw Next.js Redirects
         if (error.message === 'NEXT_REDIRECT' || error.digest?.startsWith('NEXT_REDIRECT')) {
             throw error;
         }
@@ -171,36 +200,31 @@ export async function updateUserProfile(formData: FormData) {
 
 export async function createShopAction(formData: FormData) {
     const userId = await getCurrentUserId();
-    if (!userId) redirect('/login');
+    console.log('[DEBUG ShopAction] Current UserId:', userId);
+
+    if (!userId) {
+        console.log('[DEBUG ShopAction] No userId found, redirecting to login');
+        redirect('/login');
+    }
 
     const shopName = formData.get('shopName') as string;
     const mobile = formData.get('mobile') as string; // Optional shop contact
+    console.log('[DEBUG ShopAction] Form Data - Name:', shopName, 'Mobile:', mobile);
 
     if (!shopName) {
         throw new Error('Shop Name is required');
     }
 
     const user = await getUserById(userId);
+    console.log('[DEBUG ShopAction] Fetched User:', user ? user.id : 'null');
+
     if (!user) redirect('/login');
 
-    const existingShops = await getShopsByOwner(userId);
-
-    // Subscription Limits
-    // Subscription Limits - REMOVED for Free App
-    // const limits = {
-    //     'FREE': 1,
-    //     'PRO': 3,
-    //     'PLATINUM': 10,
-    //     'TITANIUM': Infinity
-    // };
-    // const currentPlan = user.subscriptionPlan || 'FREE';
-    // const limit = limits[currentPlan];
-    // if (existingShops.length >= limit) {
-    //     redirect('/subscription?error=limit_reached');
-    // }
-
     const newShop = await createShop(userId, shopName, mobile || '');
+    console.log('[DEBUG ShopAction] New Shop Created:', newShop);
+
     await setShopContext(newShop.id); // Auto-select new shop
+    console.log('[DEBUG ShopAction] Shop Context Set. Redirecting to home...');
 
     redirect('/');
 }
