@@ -10,7 +10,28 @@ export default async function ShopsPage() {
     if (!userId) redirect('/login');
 
     const user = await getUserById(userId);
-    const shops = await getShopsByOwner(userId);
+    let shops = await getShopsByOwner(userId);
+
+    // BATCH LAZY GENERATE THEMES IF MISSING OR DEFAULT BLUE
+    const shopsWithoutTheme = shops.filter(s => !s.theme || s.theme.primaryColor === '#2563eb');
+
+    if (shopsWithoutTheme.length > 0) {
+        // Dynamic import to avoid critical dependency cycle if any
+        const { generateUserTheme } = await import("@/lib/ai");
+        const { updateShop } = await import("@/lib/db");
+
+        await Promise.all(shopsWithoutTheme.map(async (shop) => {
+            try {
+                const theme = await generateUserTheme(shop.name, 'retail');
+                await updateShop(shop.id, { theme });
+            } catch (e) {
+                console.error(`Failed to batch generate theme for ${shop.name}`, e);
+            }
+        }));
+
+        // Re-fetch to get updated themes
+        shops = await getShopsByOwner(userId);
+    }
 
     const maxShops = user?.subscriptionPlan === 'TITANIUM' ? Infinity : (
         user?.subscriptionPlan === 'PLATINUM' ? 10 :
@@ -65,38 +86,56 @@ export default async function ShopsPage() {
                 {/* Shop List */}
                 {/* Shop List */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                    {shops.map((shop: any) => (
-                        <div key={shop.id} className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between hover:shadow-xl hover:border-blue-100 transition-all duration-300 relative overflow-hidden">
+                    {shops.map((shop: any) => {
+                        const primaryColor = shop.theme?.primaryColor || '#2563eb';
+                        const secondaryColor = shop.theme?.secondaryColor || '#eff6ff'; // Light blue default
 
-                            {/* Decorative background circle */}
-                            <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
+                        return (
+                            <div key={shop.id} className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between hover:shadow-xl hover:border-gray-200 transition-all duration-300 relative overflow-hidden"
+                                style={{ borderColor: shop.theme ? `${primaryColor}20` : '' }}>
 
-                            <div className="relative z-10">
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 font-bold text-xl">
-                                        {shop.name.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{shop.name}</h3>
-                                        <p className="text-sm text-gray-500 flex items-center gap-1">
-                                            {shop.mobile ? shop.mobile : 'No contact info'}
-                                        </p>
+                                {/* Decorative background circle */}
+                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500"
+                                    style={{ backgroundColor: primaryColor }}></div>
+
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg font-bold text-xl"
+                                            style={{
+                                                backgroundImage: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}dd)`,
+                                                boxShadow: `0 10px 15px -3px ${primaryColor}30`
+                                            }}>
+                                            {shop.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-opacity-80 transition-colors"
+                                                style={{ color: shop.theme ? primaryColor : '' }}>
+                                                {shop.name}
+                                            </h3>
+                                            <p className="text-sm text-gray-500 flex items-center gap-1">
+                                                {shop.mobile ? shop.mobile : 'No contact info'}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="mt-4 relative z-10">
-                                <form action={selectShopAction.bind(null, shop.id)}>
-                                    <button
-                                        type="submit"
-                                        className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-500/20 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform active:scale-95"
-                                    >
-                                        Manage Shop <Check className="ml-2 w-4 h-4" />
-                                    </button>
-                                </form>
+                                <div className="mt-4 relative z-10">
+                                    <form action={selectShopAction.bind(null, shop.id)}>
+                                        <button
+                                            type="submit"
+                                            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all transform active:scale-95"
+                                            style={{
+                                                backgroundColor: primaryColor,
+                                                boxShadow: `0 10px 15px -3px ${primaryColor}40`
+                                            }}
+                                        >
+                                            Manage Shop <Check className="ml-2 w-4 h-4" />
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
 
                     {shops.length === 0 && (
                         <div className="bg-white border border-gray-100 rounded-3xl p-10 flex flex-col items-center justify-center col-span-full text-center shadow-sm">

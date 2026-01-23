@@ -245,8 +245,23 @@ export async function selectShopAction(shopId: string) {
 
     // Verify ownership? (Good to have)
     const shops = await getShopsByOwner(userId);
-    if (!shops.find((s: any) => s.id === shopId)) {
+    const selectedShop = shops.find((s: any) => s.id === shopId);
+
+    if (!selectedShop) {
         throw new Error('Unauthorized access to shop');
+    }
+
+    // Lazy Theme Generation for Existing Shops
+    if (!selectedShop.theme) {
+        try {
+            console.log(`[AI Shop Theme] Lazy generating for ${selectedShop.name}...`);
+            const { generateUserTheme } = await import('@/lib/ai');
+            const theme = await generateUserTheme(selectedShop.name, 'retail');
+            await updateShop(shopId, { theme });
+            console.log(`[AI Shop Theme] Saved lazy theme.`);
+        } catch (e) {
+            console.error("Failed to lazy generate theme", e);
+        }
     }
 
     await setShopContext(shopId);

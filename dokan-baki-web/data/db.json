@@ -59,21 +59,60 @@
       "name": "Kazi Enterprise",
       "mobile": "01703026161",
       "id": "w55ph8h3mkqm5lfo",
-      "createdAt": "2026-01-23T08:23:10.020Z"
+      "createdAt": "2026-01-23T08:23:10.020Z",
+      "theme": {
+        "primaryColor": "#2EDB5C",
+        "secondaryColor": "#2EDB5C",
+        "accentColor": "#ffffff"
+      }
     },
     {
       "ownerId": "juo96snsmkqm59it",
       "name": "lax",
       "mobile": "01777370180",
       "id": "c8nt3tm6mkqmkogi",
-      "createdAt": "2026-01-23T08:34:53.778Z"
+      "createdAt": "2026-01-23T08:34:53.778Z",
+      "theme": {
+        "primaryColor": "#01A1A3",
+        "secondaryColor": "#01A1A3",
+        "accentColor": "#ffffff"
+      }
     },
     {
       "ownerId": "y37frvvsmkqmu33g",
       "name": "Vai Vai Shop",
       "mobile": "01767562547",
       "id": "9ad6n25wmkqmuk9f",
-      "createdAt": "2026-01-23T08:42:34.900Z"
+      "createdAt": "2026-01-23T08:42:34.900Z",
+      "theme": {
+        "primaryColor": "#2563eb",
+        "secondaryColor": "#4f46e5",
+        "accentColor": "#f97316"
+      }
+    },
+    {
+      "ownerId": "juo96snsmkqm59it",
+      "name": "BigOne",
+      "mobile": "01711223344",
+      "theme": {
+        "primaryColor": "#978566",
+        "secondaryColor": "#978566",
+        "accentColor": "#ffffff"
+      },
+      "id": "yhpin1xsmkqnufku",
+      "createdAt": "2026-01-23T09:10:28.446Z"
+    },
+    {
+      "ownerId": "juo96snsmkqm59it",
+      "name": "Piecorrn Shop",
+      "mobile": "01711223345",
+      "theme": {
+        "primaryColor": "#c91ad5",
+        "secondaryColor": "#f7f3bb",
+        "accentColor": "#49f53d"
+      },
+      "id": "wdkdmgxemkqoncfz",
+      "createdAt": "2026-01-23T09:32:57.407Z"
     }
   ],
   "transactions": [

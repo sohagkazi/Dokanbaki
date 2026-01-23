@@ -46,11 +46,15 @@ export default async function Home() {
     // Prepare data for AI Insights
     const customersForAI = Array.from(customerBalances.entries()).map(([name, totalDue]) => ({ name, totalDue }));
 
+    const primaryColor = shop?.theme?.primaryColor || '#2563eb';
+    const secondaryColor = shop?.theme?.secondaryColor || '#eff6ff';
+    const accentColor = shop?.theme?.accentColor || '#f97316';
+
     return (
       <div className="min-h-screen bg-gray-50 text-gray-900 font-sans pb-24">
 
         {/* Header */}
-        <DashboardHeader shopName={shop?.name || 'My Shop'} shopImage={shop?.image} />
+        <DashboardHeader shopName={shop?.name || 'My Shop'} shopImage={shop?.image} theme={shop?.theme} />
 
         <main className="px-4 -mt-8 relative z-10">
 
@@ -58,7 +62,11 @@ export default async function Home() {
           <AIInsights transactions={transactions} customers={customersForAI} />
 
           {/* Main Stats Card */}
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 mb-8 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden">
+          <div className="rounded-3xl p-6 mb-8 text-white shadow-xl relative overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}dd)`,
+              boxShadow: `0 20px 25px -5px ${primaryColor}50`
+            }}>
             {/* Background Pattern */}
             <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
               <TrendingUp className="w-32 h-32 transform -rotate-12 translate-x-8 -translate-y-8" />
