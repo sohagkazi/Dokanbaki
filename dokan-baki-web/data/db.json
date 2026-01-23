@@ -35,7 +35,12 @@
       "subscriptionPlan": "FREE",
       "smsBalance": 0,
       "id": "y37frvvsmkqmu33g",
-      "createdAt": "2026-01-23T08:42:12.652Z"
+      "createdAt": "2026-01-23T08:42:12.652Z",
+      "theme": {
+        "primaryColor": "#2563eb",
+        "secondaryColor": "#4f46e5",
+        "accentColor": "#f97316"
+      }
     }
   ],
   "shops": [

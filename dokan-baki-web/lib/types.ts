@@ -28,6 +28,7 @@ export interface Shop {
     ownerName?: string;
     address?: string;
     image?: string;
+    theme?: ThemeConfig;
 }
 
 export interface Transaction {

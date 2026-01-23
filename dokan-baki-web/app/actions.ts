@@ -220,7 +220,17 @@ export async function createShopAction(formData: FormData) {
 
     if (!user) redirect('/login');
 
-    const newShop = await createShop(userId, shopName, mobile || '');
+    // AI THEME GENERATION FOR SHOP
+    let theme;
+    try {
+        console.log(`[AI Shop Theme] Generating for ${shopName}...`);
+        const { generateUserTheme } = await import('@/lib/ai');
+        theme = await generateUserTheme(shopName, 'retail');
+    } catch (e) {
+        console.error('[AI Shop Theme] Failed:', e);
+    }
+
+    const newShop = await createShop(userId, shopName, mobile || '', theme);
     console.log('[DEBUG ShopAction] New Shop Created:', newShop);
 
     await setShopContext(newShop.id); // Auto-select new shop

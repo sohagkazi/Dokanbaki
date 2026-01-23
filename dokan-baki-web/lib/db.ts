@@ -44,12 +44,13 @@ export async function updateUser(id: string, data: Partial<User>): Promise<User 
 
 // --- SHOP FUNCTIONS ---
 
-export async function createShop(ownerId: string, name: string, mobile: string): Promise<Shop> {
+export async function createShop(ownerId: string, name: string, mobile: string, theme?: any): Promise<Shop> {
     console.log('[DB] Creating Shop:', { ownerId, name });
     return JsonDB.insert('shops', {
         ownerId,
         name,
-        mobile: mobile || ''
+        mobile: mobile || '',
+        theme
     });
 }
 

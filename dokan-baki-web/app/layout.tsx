@@ -40,13 +40,23 @@ export default async function RootLayout({
   const userId = await getCurrentUserId();
   const user = userId ? await getUserById(userId) : null;
 
+  // Fetch Shop Theme if shop selected
+  let activeTheme = user?.theme;
+  if (shopId) {
+    const { getShopById } = await import('@/lib/db');
+    const shop = await getShopById(shopId);
+    if (shop?.theme) {
+      activeTheme = shop.theme;
+    }
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased bg-gray-50`}
         suppressHydrationWarning
       >
-        <ThemeProvider theme={user?.theme}>
+        <ThemeProvider theme={activeTheme}>
           {children}
           {shopId && <BottomNav />}
           {userId && <AiChatWidget />}
