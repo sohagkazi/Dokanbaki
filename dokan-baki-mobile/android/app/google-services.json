@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "49866951058",
+    "project_id": "dokanbakikhata",
+    "storage_bucket": "dokanbakikhata.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49866951058:android:0c332d0a5cfae52940594b",
+        "android_client_info": {
+          "package_name": "com.example.dokan_baki_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49866951058-ued060vqmr48rnord0fur2dbnfj1dqos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBolKk4QYV9HjmLoCE1gwhG6iZWw-76djg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49866951058-ued060vqmr48rnord0fur2dbnfj1dqos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

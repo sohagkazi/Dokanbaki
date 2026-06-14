@@ -1,0 +1,26 @@
+  error - models\shop.dart:16:11 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\shop.dart:17:13 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\shop.dart:18:16 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\shop.dart:19:15 - The argument type 'dynamic' can't be assigned to the parameter type 'String?'.  - argument_type_not_assignable
+  error - models\transaction_model.dart:22:11 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\transaction_model.dart:23:15 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\transaction_model.dart:24:21 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\transaction_model.dart:26:13 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\transaction_model.dart:27:13 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\transaction_model.dart:28:21 - The argument type 'dynamic' can't be assigned to the parameter type 'String?'.  - argument_type_not_assignable
+  error - models\user.dart:18:11 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\user.dart:19:13 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\user.dart:20:15 - The argument type 'dynamic' can't be assigned to the parameter type 'String'.  - argument_type_not_assignable
+  error - models\user.dart:21:14 - The argument type 'dynamic' can't be assigned to the parameter type 'String?'.  - argument_type_not_assignable
+  error - models\user.dart:22:25 - The argument type 'dynamic' can't be assigned to the parameter type 'String?'.  - argument_type_not_assignable
+  error - providers\auth_provider.dart:28:29 - The argument type 'dynamic' can't be assigned to the parameter type 'Map<String, dynamic>'.  - argument_type_not_assignable
+  error - providers\auth_provider.dart:45:29 - The argument type 'dynamic' can't be assigned to the parameter type 'Map<String, dynamic>'.  - argument_type_not_assignable
+  error - screens\dashboard\home_screen.dart:3:8 - Target of URI doesn't exist: 'package:intl/intl.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - screens\dashboard\home_screen.dart:163:74 - The getter 'arrow_inward' isn't defined for the type 'Icons'. Try importing the library that defines 'arrow_inward', correcting the name to the name of an existing getter, or defining a getter or field named 'arrow_inward'. - undefined_getter
+  error - services\api_service.dart:26:14 - A value of type 'dynamic' can't be returned from the method 'login' because it has a return type of 'Future<Map<String, dynamic>>'. - return_of_invalid_type
+  error - services\api_service.dart:45:14 - A value of type 'dynamic' can't be returned from the method 'register' because it has a return type of 'Future<Map<String, dynamic>>'. - return_of_invalid_type
+  error - services\api_service.dart:59:26 - A value of type 'dynamic' can't be assigned to a variable of type 'List<dynamic>'. Try changing the type of the variable, or casting the right-hand type to 'List<dynamic>'. - invalid_assignment
+  error - services\api_service.dart:60:45 - The argument type 'dynamic' can't be assigned to the parameter type 'Map<String, dynamic>'.  - argument_type_not_assignable
+  error - services\api_service.dart:77:28 - The argument type 'dynamic' can't be assigned to the parameter type 'Map<String, dynamic>'.  - argument_type_not_assignable
+  error - services\api_service.dart:90:33 - A value of type 'dynamic' can't be assigned to a variable of type 'List<dynamic>'. Try changing the type of the variable, or casting the right-hand type to 'List<dynamic>'. - invalid_assignment
+  error - services\api_service.dart:91:64 - The argument type 'dynamic' can't be assigned to the parameter type 'Map<String, dynamic>'.  - argument_type_not_assignable

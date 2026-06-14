@@ -1,0 +1,63 @@
+﻿--------- beginning of main
+04-11 23:31:54.105  2792  2980 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+04-11 23:31:54.803  2792  3008 I flutter : The Dart VM service is listening on http://127.0.0.1:45773/X9k8ylumkjA=/
+04-11 23:34:49.896  2792  2792 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-11 23:34:49.896  2792  2792 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-11 23:34:49.896  2792  2792 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-11 23:34:49.896  2792  2792 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-11 23:34:49.896  2792  2792 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-11 23:34:49.896  2792  2792 E flutter : <asynchronous suspension>
+04-11 23:34:49.896  2792  2792 E flutter : 
+04-11 23:37:50.105  2792  2792 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-11 23:37:50.105  2792  2792 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-11 23:37:50.105  2792  2792 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-11 23:37:50.105  2792  2792 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-11 23:37:50.105  2792  2792 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-11 23:37:50.105  2792  2792 E flutter : <asynchronous suspension>
+04-11 23:37:50.105  2792  2792 E flutter : 
+04-11 23:46:33.061  5052  5081 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+04-11 23:46:33.149  5052  5090 I flutter : The Dart VM service is listening on http://127.0.0.1:32821/KjflOrEGEvA=/
+04-11 23:47:31.801  5052  5052 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-11 23:47:31.801  5052  5052 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-11 23:47:31.801  5052  5052 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-11 23:47:31.801  5052  5052 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-11 23:47:31.801  5052  5052 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-11 23:47:31.801  5052  5052 E flutter : <asynchronous suspension>
+04-11 23:47:31.801  5052  5052 E flutter : 
+04-11 23:47:55.386  5052  5052 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-11 23:47:55.386  5052  5052 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-11 23:47:55.386  5052  5052 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-11 23:47:55.386  5052  5052 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-11 23:47:55.386  5052  5052 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-11 23:47:55.386  5052  5052 E flutter : <asynchronous suspension>
+04-11 23:47:55.386  5052  5052 E flutter : 
+04-11 23:55:40.334  5052  5052 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-11 23:55:40.334  5052  5052 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-11 23:55:40.334  5052  5052 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-11 23:55:40.334  5052  5052 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-11 23:55:40.334  5052  5052 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-11 23:55:40.334  5052  5052 E flutter : <asynchronous suspension>
+04-11 23:55:40.334  5052  5052 E flutter : 
+04-12 00:03:55.832  5771  5838 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+04-12 00:03:55.933  5771  5847 I flutter : The Dart VM service is listening on http://127.0.0.1:34799/GOXpp3Uwz1Y=/
+04-12 00:04:33.772  5771  5771 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-12 00:04:33.772  5771  5771 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-12 00:04:33.772  5771  5771 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-12 00:04:33.772  5771  5771 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-12 00:04:33.772  5771  5771 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-12 00:04:33.772  5771  5771 E flutter : <asynchronous suspension>
+04-12 00:04:33.772  5771  5771 E flutter : 
+04-12 00:05:07.694  5771  5771 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-12 00:05:07.694  5771  5771 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-12 00:05:07.694  5771  5771 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-12 00:05:07.694  5771  5771 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-12 00:05:07.694  5771  5771 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-12 00:05:07.694  5771  5771 E flutter : <asynchronous suspension>
+04-12 00:05:07.694  5771  5771 E flutter : 
+04-12 00:05:45.189  5771  5771 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
+04-12 00:05:45.189  5771  5771 E flutter : Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+04-12 00:05:45.189  5771  5771 E flutter : #0      State.context.<anonymous closure> (package:flutter/src/widgets/framework.dart:952:9)
+04-12 00:05:45.189  5771  5771 E flutter : #1      State.context (package:flutter/src/widgets/framework.dart:958:6)
+04-12 00:05:45.189  5771  5771 E flutter : #2      _LoginScreenState._submit (package:dokan_baki_mobile/screens/auth/login_screen.dart:32:29)
+04-12 00:05:45.189  5771  5771 E flutter : <asynchronous suspension>
+04-12 00:05:45.189  5771  5771 E flutter : 
