@@ -115,25 +115,45 @@ export async function loginUserAction(formData: FormData) {
 
         let user;
         try {
-            console.log(`[Login Debug] Attempting login for: ${mobileOrEmail}`);
+            console.log(`[Login Debug] Attempting login for: '${mobileOrEmail}' with password: '${password}'`);
             if (mobileOrEmail.includes('@')) {
                 user = await getUserByEmail(mobileOrEmail);
             } else {
                 user = await getUserByMobile(mobileOrEmail);
             }
-            console.log(`[Login Debug] User fetch result:`, user ? `Found user ${user.id}` : 'User not found');
+            console.log(`[Login Debug] User fetch result:`, user ? `Found user ${user.id}, db_password: '${user.password}'` : 'User not found');
         } catch (error: any) {
-            console.error("[Login Debug] DB Error:", error);
-            redirect('/login?error=db_connection');
+            console.error("[Login Debug] DB Error Object:", error);
+            const msg = error?.message || 'unknown_error';
+            redirect('/login?error=db_connection&details=' + encodeURIComponent(msg));
         }
 
         if (!user) {
-            redirect('/login?error=invalid');
+            console.log(`[Login Debug] Redirecting because NO USER FOUND`);
+            redirect('/login?error=invalid&details=UserNotFound_' + mobileOrEmail);
         }
 
-        const isValid = await bcrypt.compare(password, user.password || '');
+        console.log(`[Login Debug] Comparing password. user.password: '${user.password}', input: '${password}'`);
+        
+        let isValid = false;
+        try {
+            isValid = await bcrypt.compare(password, user.password || '');
+            console.log(`[Login Debug] bcrypt.compare result: ${isValid}`);
+        } catch(e) {
+            console.error(`[Login Debug] bcrypt.compare THREW AN ERROR:`, e);
+        }
+        
+        // Fallback for mobile app which saves passwords in plaintext
+        if (!isValid && user.password === password) {
+            console.log(`[Login Debug] Applying PLAINTEXT FALLBACK`);
+            isValid = true;
+        }
+
+        console.log(`[Login Debug] Final isValid: ${isValid}`);
+
         if (!isValid) {
-            redirect('/login?error=invalid');
+            console.log(`[Login Debug] Redirecting because INVALID PASSWORD`);
+            redirect('/login?error=invalid&details=WrongPassword');
         }
 
         // AI DYNAMIC THEMING

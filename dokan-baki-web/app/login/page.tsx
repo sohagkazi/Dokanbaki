@@ -7,6 +7,7 @@ import { SubmitButton } from "@/components/submit-button";
 export default async function Login(props: { searchParams: Promise<{ error?: string }> }) {
     const searchParams = await props.searchParams;
     const error = searchParams?.error;
+    const details = searchParams?.details || '';
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans relative">
@@ -34,8 +35,11 @@ export default async function Login(props: { searchParams: Promise<{ error?: str
                         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
                             <div className="flex">
                                 <div className="ml-3">
-                                    <p className="text-sm text-red-700">
-                                        Invalid Mobile Number or Password. Please try again.
+                                    <p className="text-sm text-red-700 font-medium">
+                                        Error code: {error}
+                                    </p>
+                                    <p className="text-sm text-red-600 mt-1">
+                                        {error === 'db_connection' ? `Unable to connect to the database. (${details})` : error === 'invalid' ? 'Invalid Mobile Number or Password. Please try again.' : 'A system error occurred. Please try again.'}
                                     </p>
                                 </div>
                             </div>

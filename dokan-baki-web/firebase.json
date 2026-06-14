@@ -1,31 +1,5 @@
 {
-  "hosting": {
-    "target": "dokanbakikhata",
-    "source": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "frameworksBackend": {
-      "region": "us-central1",
-      "memory": "1GiB",
-      "timeoutSeconds": 60,
-      "minInstances": 0
-    }
-  },
-  "emulators": {
-    "auth": {
-      "port": 9099
-    },
-    "functions": {
-      "port": 5001
-    },
-    "firestore": {
-      "port": 8080
-    },
-    "hosting": {
-      "port": 5000
-    }
+  "firestore": {
+    "rules": "firestore.rules"
   }
 }

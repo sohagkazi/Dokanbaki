@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
 
   // @ts-ignore
   // turbopack: {},
+  serverExternalPackages: ["firebase-admin"],
   output: 'standalone',
 };
 
