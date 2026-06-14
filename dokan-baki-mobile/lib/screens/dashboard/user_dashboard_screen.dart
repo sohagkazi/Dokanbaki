@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../utils/app_theme.dart';
@@ -53,10 +55,44 @@ class UserDashboardScreen extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.grey[200],
-                          child: const Icon(Icons.person, color: Colors.grey, size: 36),
+                        GestureDetector(
+                          onTap: () async {
+                            final picker = ImagePicker();
+                            final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                               await auth.updateProfileImage(File(pickedFile.path));
+                            }
+                          },
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey[200],
+                                backgroundImage: user.photoUrl != null && user.photoUrl!.isNotEmpty
+                                    ? NetworkImage(user.photoUrl!)
+                                    : null,
+                                child: (user.photoUrl == null || user.photoUrl!.isEmpty)
+                                    ? const Icon(Icons.person, color: Colors.grey, size: 36)
+                                    : null,
+                              ),
+                              if (auth.isLoading)
+                                const Positioned.fill(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.blue,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(Icons.camera_alt, color: Colors.white, size: 12),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(

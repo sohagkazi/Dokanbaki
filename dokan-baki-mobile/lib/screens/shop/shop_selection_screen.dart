@@ -89,9 +89,14 @@ class _ShopSelectionScreenState extends State<ShopSelectionScreen> {
               Navigator.of(context).pushNamed(UserDashboardScreen.routeName);
             },
             child: CircleAvatar(
-              radius: 16,
+              radius: 18,
               backgroundColor: Colors.grey[200],
-              child: const Icon(Icons.person, color: Colors.grey, size: 20),
+              backgroundImage: auth.user?.photoUrl != null && auth.user!.photoUrl!.isNotEmpty
+                  ? NetworkImage(auth.user!.photoUrl!)
+                  : null,
+              child: (auth.user?.photoUrl == null || auth.user!.photoUrl!.isEmpty)
+                  ? const Icon(Icons.person, color: Colors.grey, size: 24)
+                  : null,
             ),
           ),
           const SizedBox(width: 16),

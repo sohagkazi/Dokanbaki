@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import '../models/user.dart' as model_user;
 import '../models/shop.dart';
 import '../models/transaction_model.dart';
@@ -114,5 +116,16 @@ class ApiService {
       batch.delete(doc.reference);
     }
     await batch.commit();
+  }
+  Future<String> uploadUserProfileImage(String userId, File imageFile) async {
+    final storageRef = FirebaseStorage.instance.ref().child('user_profiles').child('$userId.jpg');
+    final uploadTask = await storageRef.putFile(imageFile);
+    final downloadUrl = await uploadTask.ref.getDownloadURL();
+    
+    await _db.collection('users').doc(userId).update({
+      'image': downloadUrl,
+    });
+    
+    return downloadUrl;
   }
 }

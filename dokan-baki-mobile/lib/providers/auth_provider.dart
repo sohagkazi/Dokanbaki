@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,6 +92,34 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateProfileImage(File imageFile) async {
+    if (_user == null) return;
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final downloadUrl = await _apiService.uploadUserProfileImage(_user!.id, imageFile);
+      
+      // Update user object with new photoUrl
+      _user = User(
+        id: _user!.id,
+        name: _user!.name,
+        mobile: _user!.mobile,
+        email: _user!.email,
+        subscriptionPlan: _user!.subscriptionPlan,
+        photoUrl: downloadUrl,
+      );
+      
+      await _saveUserToPrefs(_user!);
+    } catch (e) {
+      print("Error uploading image: $e");
+      rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> tryAutoLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) return;
@@ -109,6 +138,7 @@ class AuthProvider with ChangeNotifier {
       'mobile': user.mobile,
       'email': user.email,
       'subscriptionPlan': user.subscriptionPlan,
+      'photoUrl': user.photoUrl,
     });
     await prefs.setString('userData', userData);
   }
